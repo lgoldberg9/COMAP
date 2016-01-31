@@ -2,6 +2,7 @@
 # TODO: make changes to work with Logan's code
 #       add static plots and visualization
 #       incorporate with fluid simulation
+# This is a test
 
 import numpy as np 
 import matplotlib.pyplot as plt 
