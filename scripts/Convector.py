@@ -18,7 +18,7 @@ class Convector:
     where $u : \Omega \times \mathbb{R} \to \mathbb{R}$ is a temperature 
     function and $\Omega \subseteq \mathbb{R}^2$.
     """
-    def __init__(self, tub, source=False, fig=plt.figure()):
+    def __init__(self, tub, vfield, source=False, fig=plt.figure()):
         """
         Convector class initialization method.
 
@@ -28,6 +28,7 @@ class Convector:
         fig -- where to send plots (default plt.figure())
         """
         self.__tub = tub
+        self.__vfield = vfield
         self.__dx = self.__tub.length / self.__tub.cols
         self.__dy = self.__tub.width / self.__tub.rows
         self.__dt = self.__tub.duration / self.__tub.intervals
@@ -126,12 +127,12 @@ class Convector:
         return num / den
 
     def forward_diff(next_u, current_u, delta):
-        pass
+        return (next_u - current_u) / delta
 
     def backward_diff(current_u, prev_u, delta):
         return forward_diff(current_u, prev_u, delta)
 
-    def diffusion_step(self, t):
+    def convection_step(self, t):
         r"""
         Computes the next iteration of diffusion across the grid, using
         the update step
@@ -156,15 +157,24 @@ class Convector:
         dt = self.__dt
         alpha = self.__tub.alpha
         
-        for i in range(1, m):
-            for j in range(1, n):
+        for i in range(1, m-1):
+            for j in range(1, n-1):
+                # Computes the gradient
+                xgrad = Convector.forward_diff(self.grid[i,j+1,t],
+                                               self.grid[i,j,t], dx)
+                ygrad = Convector.forward_diff(self.grid[i-1,j,t],
+                                               self.grid[i,j,t], dy)
                 # Compute numerical approximation of the Laplacian
                 xlap = Convector.central_second_diff(self.grid[i,j+1,t], 
                                                     self.grid[i,j,t], self.grid[i,j-1,t], dx)
                 ylap = Convector.central_second_diff(self.grid[i-1,j,t], 
                                                     self.grid[i,j,t], self.grid[i+1,j,t], dy)
+
+                update = alpha * (xlap + ylap) - (xgrad * vfield.u[i,j,t] +
+                                                  ygrad * vfield.v[i,j,t])
+
                 if not (self.__source and self.calculate_ellipse(i, j)):
-                    self.grid[i,j,t+1] = self.grid[i,j,t] + alpha  * (xlap + ylap) * dt
+                    self.grid[i,j,t+1] = self.grid[i,j,t] + update * dt
 
     def animate(self, **kwargs):
         """
