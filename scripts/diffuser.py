@@ -38,6 +38,16 @@ class Diffuser:
         self.__ellipse = (0,0,0,0)
         self.__fig = fig
 
+	def get_dx():
+		return self.__dx
+
+	def get_dy():
+		return self.__dy
+
+	def get_dt():
+		return self.__dt
+
+
     def stable(self):
         """
         Method to determine if current tub will produce numerically stable
