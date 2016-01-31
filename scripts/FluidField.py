@@ -1,8 +1,4 @@
-
 # coding: utf-8
-
-# In[ ]:
-
 # As of January 31 2016 (12:30 AM)
 
 import numpy as np 
@@ -11,10 +7,10 @@ import matplotlib.animation as animation
 
 class FluidField:
     
-    def __init__(self, Bathtub, Diffuser, F, rho, initial_temp):
+    def __init__(self, tub, conv, F, rho, initial_temp):
         
-        self.__tub = Bathtub
-        self.__diff = Diffuser
+        self.__tub = tub
+        self.__conv = conv
         self.u = np.zeros((tub.rows,tub.columns,tub.intervals))
         self.v = np.zeros((tub.rows,tub.columns,tub.intervals))
         self.__p = np.ones((tub.rows,tub.columns,tub.intervals)) 
@@ -50,19 +46,19 @@ class FluidField:
     
     def fluid_field(source_i, source_j, sink_i, sink_j):
     
-        diff.calculate_ellipse(source_i, source_j)
+       self.__conv.calculate_ellipse(source_i, source_j)
     
         
     
-        udiff = 1
+        uconv = 1
         stepcount = 0
         
-        while udiff > .001:
+        while uconv > .001:
             un = u.copy()
             vn = v.copy()
 
-            b = buildUpB(source, rho, diff.get_dt, diff.get_dx, diff.get_dy, u, v)
-            p = presPoissPeriodic(p, diff.get_dx, diff.get_dy)
+            b = buildUpB(source, rho, self.__conv.get_dt, self.__conv.get_dx, self.__conv.get_dy, u, v)
+            p = presPoissPeriodic(p, self.__conv.get_dx, self.__conv.get_dy)
 
             u[1:-1,1:-1] = un[1:-1,1:-1]-                un[1:-1,1:-1,]*dt/dx*(un[1:-1,1:-1]-un[1:-1,0:-2])-                vn[1:-1,1:-1,]*dt/dy*(un[1:-1,1:-1]-un[0:-2,1:-1])-                dt/(2*rho*dx)*(p[1:-1,2:]-p[1:-1,0:-2])+                tub.alpha*(dt/dx**2*(un[1:-1,2:]-2*un[1:-1,1:-1]+un[1:-1,0:-2])+                dt/dy**2*(un[2:,1:-1]-2*un[1:-1,1:-1]+un[0:-2,1:-1]))+F*dt
 
@@ -70,7 +66,7 @@ class FluidField:
 
 
 
-            udiff = (np.sum(u)-np.sum(un))/np.sum(u)
+            uconv = (np.sum(u)-np.sum(un))/np.sum(u)
             stepcount += 1
         return u, v
     
