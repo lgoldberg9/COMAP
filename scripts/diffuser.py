@@ -75,7 +75,7 @@ class Diffuser:
     def calculate_ellipse(self, i, j):
         x, y = self.ij_to_xy(i, j)
         h, k, a, b = self.__ellipse
-        return np.power((x - h) / a, 2.0) +np.power((y - k) / b, 2.0) <= 1.0
+        return np.power((x - h) / a, 2.0) + np.power((y - k) / b, 2.0) <= 1.0
 
 
     def setup_source(self, ellipse, temperature, source=False):
@@ -86,7 +86,7 @@ class Diffuser:
         Arguments:
         ellipse -- a list of 4 floats [h,k,a,b] which will define the inequality
         \[
-            a(x  - h)^2 + b(y - k)^2 <= 1,
+            (x  - h)^2 / a^2 + (y - k)^2 / b^2 <= 1,
         \]
         which defines an elliptical disk in the region.
         temperature -- the temperature value to assign the source (float)
