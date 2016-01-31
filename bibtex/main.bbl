@@ -1,0 +1,174 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.5 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist{apa}{apa}
+    \entry{hsu}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=0710cc9057cfb90cf2d571b077dc3089}{Hsu}{H\bibinitperiod}{Jeremy}{J\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=18b3f7db1f720d25eae10b844979a0fe}{InnovationNewsDaily}{I\bibinitperiod}{}{}{}{}{}{}}%
+      }
+      \strng{namehash}{6a706a928fec621f00e10ec6a6311156}
+      \strng{fullhash}{6a706a928fec621f00e10ec6a6311156}
+      \field{sortinit}{H}
+      \field{sortinithash}{82012198d5dfa657b8c4a168793268a6}
+      \field{labelyear}{2012}
+      \field{labelmonth}{04}
+      \field{datelabelsource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Scientific American}
+      \field{month}{04}
+      \field{title}{Secret Computer Code Threatens Science}
+      \field{urlday}{01}
+      \field{urlmonth}{11}
+      \field{urlyear}{2015}
+      \field{year}{2012}
+      \verb{url}
+      \verb http://www.scientificamerican.com/article/secret-computer-code-threatens-science/
+      \endverb
+    \endentry
+    \entry{johnson}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=2f9348c97c347de7d62811891f0529c9}{Johnson}{J\bibinitperiod}{Deborah\bibnamedelima G.}{D\bibinitperiod\bibinitdelim G\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{2f9348c97c347de7d62811891f0529c9}
+      \strng{fullhash}{2f9348c97c347de7d62811891f0529c9}
+      \field{sortinit}{J}
+      \field{sortinithash}{ec3950a647c092421b9fcca6d819504a}
+      \field{labelyear}{2008}
+      \field{labelmonth}{10}
+      \field{datelabelsource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0001-0782}
+      \field{journaltitle}{Commun. ACM}
+      \field{month}{10}
+      \field{number}{10}
+      \field{title}{Computing Ethics: Computer Experts: Guns-for-hire or Professionals?}
+      \field{volume}{51}
+      \field{year}{2008}
+      \field{pages}{24\bibrangedash 26}
+      \range{pages}{3}
+      \verb{doi}
+      \verb 10.1145/1400181.1400190
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/1400181.1400190
+      \endverb
+    \endentry
+    \entry{merali}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=8752e74f63939f3700ba0050306ae639}{Merali}{M\bibinitperiod}{Zeeya}{Z\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{8752e74f63939f3700ba0050306ae639}
+      \strng{fullhash}{8752e74f63939f3700ba0050306ae639}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelyear}{2010}
+      \field{labelmonth}{10}
+      \field{datelabelsource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature}
+      \field{month}{10}
+      \field{title}{Error: why scientific programming does not compute}
+      \field{urlday}{01}
+      \field{urlmonth}{11}
+      \field{urlyear}{2015}
+      \field{volume}{467}
+      \field{year}{2010}
+      \verb{url}
+      \verb http://www.nature.com/news/2010/101013/full/467775a.html
+      \endverb
+    \endentry
+    \entry{miller}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=19a46ccebbf378a3f4b35fdcc0870017}{Miller}{M\bibinitperiod}{Greg}{G\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{19a46ccebbf378a3f4b35fdcc0870017}
+      \strng{fullhash}{19a46ccebbf378a3f4b35fdcc0870017}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelyear}{2006}
+      \field{labelmonth}{12}
+      \field{datelabelsource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Science}
+      \field{month}{12}
+      \field{title}{A scientist's nightmare: software problem leads to five retractions}
+      \field{urlday}{01}
+      \field{urlmonth}{11}
+      \field{urlyear}{2015}
+      \field{volume}{314}
+      \field{year}{2006}
+      \verb{url}
+      \verb http://www.sciencemag.org/content/314/5807/1856
+      \endverb
+    \endentry
+    \entry{narayanan}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=95dc795a2be14c50fb6a924acc135ff8}{Narayanan}{N\bibinitperiod}{Arvind}{A\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=d71d4e22a512b99daa7807bb1ac96a4b}{Vallor}{V\bibinitperiod}{Shannon}{S\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{a84567a56b066b2f739250954232d920}
+      \strng{fullhash}{a84567a56b066b2f739250954232d920}
+      \field{sortinit}{N}
+      \field{sortinithash}{925374ca63e7594de7fafdb83e64d41d}
+      \field{labelyear}{2014}
+      \field{labelmonth}{03}
+      \field{datelabelsource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0001-0782}
+      \field{journaltitle}{Commun. ACM}
+      \field{month}{03}
+      \field{number}{3}
+      \field{title}{Why Software Engineering Courses Should Include Ethics Coverage}
+      \field{urlday}{01}
+      \field{urlmonth}{11}
+      \field{urlyear}{2015}
+      \field{volume}{57}
+      \field{year}{2014}
+      \field{pages}{23\bibrangedash 25}
+      \range{pages}{3}
+      \verb{doi}
+      \verb 10.1145/2566966
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/2566966
+      \endverb
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+

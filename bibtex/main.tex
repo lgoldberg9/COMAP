@@ -1,0 +1,31 @@
+\documentclass[12pt,doc]{apa6} 
+
+\usepackage{blindtext}
+\usepackage[american]{babel}
+\usepackage[style=chicago,
+            backend=biber,
+            natbib=true,
+            url=true]{biblatex}
+\DeclareLanguageMapping{american}{american-apa}
+\usepackage[hidelinks]{hyperref}
+\usepackage{setspace}
+\usepackage{txfonts}
+\usepackage{microtype}
+
+\bibliography{main.bib}
+\title{Ethical Academic Software Practices: the Case for Behavior-Driven
+Development}
+\author{David Kraemer}
+\date{November 24, 2015}
+\shorttitle{Behavior-Driven Development in Academia}
+\affiliation{Grinnell College}
+\leftheader{Kraemer}
+\doublespacing
+
+\begin{document}
+
+    \maketitle
+
+       \printbibliography
+
+\end{document}
