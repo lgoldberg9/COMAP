@@ -64,7 +64,7 @@ class Diffuser:
     def calculate_ellipse(self, i, j):
         x, y = self.ij_to_xy(i, j)
         h, k, a, b = self.__ellipse
-        return a * (x - h)**2 + b * (y - k)**2 <= 1.0
+        return np.power((x - h) / a, 2.0) +np.power((y - k) / b, 2.0) <= 1.0
 
 
     def setup_source(self, ellipse, temperature, source=False):
@@ -90,7 +90,6 @@ class Diffuser:
             time = self.__tub.intervals
         else:
             time = 1
-        print(time)
         for i in range(self.__tub.rows):
             for j in range(self.__tub.cols):
                 if self.calculate_ellipse(i, j):
@@ -165,6 +164,7 @@ class Diffuser:
             self.diffusion_step(t)
             im = plt.imshow(self.grid[:,:,t], **kwargs)
             ims.append([im])
+        plt.colorbar()
         ani = animation.ArtistAnimation(self.__fig, ims,
                 interval=self.__tub.intervals, blit=True)
 
