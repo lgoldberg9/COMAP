@@ -7,43 +7,6 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import matplotlib.animation as animation
 
-class DiffuserSpecs:
-    """
-    DiffuserSpecs class, for specifying the geometry and other parameters
-    needed to perform diffusion.
-
-    Every parameter is public and accessible. This class is just a way to
-    organize the information for the Diffuser class.
-    """
-
-    def __init__(self, box_shape, box_dims, intervals=100, duration=60,
-            temp=0.0, alpha=1e-7):
-        """
-        DiffuserSpecs class initialization method.
-
-        Arguments:
-        box_shape -- a 2-element list of integers specifying rows and cols
-        box_dims -- a 2-element list of floats specifying length and width
-
-
-        Keyword arguments:
-        intervals -- number of time steps for the diffusion (default 100)
-        duration -- number of time units for the diffusion (default 60)
-        temp -- global temperature default (default 0.0)
-        alpha -- diffusion parameter (default 1e-7)
-        """
-
-        self.rows = box_shape[0]
-        self.cols = box_shape[1]
-        self.length = box_dims[0]
-        self.width = box_dims[1]
-        self.intervals = intervals
-        self.duration = duration
-        self.max_temp = max_temp
-        self.alpha = alpha
-
-
-
 class Diffuser:
     """
     A class for running simulated heat diffusion by numerically solving the
@@ -54,28 +17,29 @@ class Diffuser:
     where $u : \Omega \times \mathbb{R} \to \mathbb{R}$ is a temperature 
     function and $\Omega \subseteq \mathbb{R}^2$.
     """
-    def __init__(self, specs, source=False, fig=plt.figure()):
+    def __init__(self, tub, source=False, fig=plt.figure()):
         """
         Diffuser class initialization method.
 
         Arguments:
-        specs -- a DiffuserSpecs object
+        tub -- a Bathtub object
         source -- indicates whether a heat source is present (default False)
         fig -- where to send plots (default plt.figure())
         """
-        self.__specs = specs
-        self.__dx = self.__specs.length / self.__specs.cols
-        self.__dy = self.__specs.width / self.__specs.rows
-        self.__dt = self.__specs.duration / self.__specs.intervals
-        self.grid = np.ones((self.__specs.rows + 1, self.__specs.cols + 1,
-            self.__specs.intervals)) \
-                    * self.__specs.max_temp
+        self.__tub = tub
+        self.__dx = self.__tub.length / self.__tub.cols
+        self.__dy = self.__tub.width / self.__tub.rows
+        self.__dt = self.__tub.duration / self.__tub.intervals
+        self.grid = np.ones((self.__tub.rows + 1, self.__tub.cols + 1,
+            self.__tub.intervals)) \
+                    * self.__tub.temp
         self.__source = source
+        self.__ellipse = (0,0,0,0)
         self.__fig = fig
 
     def stable(self):
         """
-        Method to determine if current specs will produce numerically stable
+        Method to determine if current tub will produce numerically stable
         results. It verifies the following inequality:
         \[
             dt \leq \frac{1}{2\alpha} \frac{(dx \ dy)^2}{(dx)^2 + (dy)^2)}
@@ -83,8 +47,55 @@ class Diffuser:
         Source: pending
         """
         dx, dy, dt = [self.__dx, self.__dy, self.__dt]
-        alpha = self.__specs.alpha
+        alpha = self.__tub.alpha
         return (dt <= 1.0/(2.0 * alpha) * (dx * dy)**2 / (dx**2 + dy**2))
+
+    def define_boundary(self):
+        pass
+
+    def ij_to_xy(self, i, j):
+        """
+        Converts a grid (i,j) row-column coordinate on the meshgrid into a
+        Cartesian (x,y) pair based on the geometry of the Bathtub.
+        """
+        return ((j/self.__tub.cols - 1/2)*self.__tub.length, (1/2 -
+            i/self.__tub.rows)*self.__tub.width)
+
+    def calculate_ellipse(self, i, j):
+        x, y = self.ij_to_xy(i, j)
+        h, k, a, b = self.__ellipse
+        return a * (x - h)**2 + b * (y - k)**2 <= 1.0
+
+
+    def setup_source(self, ellipse, temperature, source=False):
+        """ 
+        Add a \"faucet\" source to the first iteration of the diffusion 
+        simulation. If the argument source is True, make this source permanent.
+
+        Arguments:
+        ellipse -- a list of 4 floats [h,k,a,b] which will define the inequality
+        \[
+            a(x  - h)^2 + b(y - k)^2 <= 1,
+        \]
+        which defines an elliptical disk in the region.
+        temperature -- the temperature value to assign the source (float)
+
+
+        Keyword Arguments:
+        source -- determines if the faucet source remains on (default False)
+        """
+        self.__source = source
+        self.__ellipse = tuple(ellipse)
+        if self.__source:
+            time = self.__tub.intervals
+        else:
+            time = 1
+        print(time)
+        for i in range(self.__tub.rows):
+            for j in range(self.__tub.cols):
+                if self.calculate_ellipse(i, j):
+                    for t in range(time):
+                        self.grid[i, j, t] = temperature
 
     def central_second_diff(next_u, current_u, prev_u, delta):
         """
@@ -106,7 +117,7 @@ class Diffuser:
         return num / den
 
     def diffusion_step(self, t):
-        """
+        r"""
         Computes the next iteration of diffusion across the grid, using
         the update step
         \[
@@ -114,20 +125,21 @@ class Diffuser:
         \]
         where 
         \[
-            \Nabla^2 T = \frac{\partial^2 T}{\partial x^2} + 
+           \Nabla^2 T = \frac{\partial^2 T}{\partial x^2} + 
             \frac{\partial^2 T}{\partial y^2}
         \]
         is the 2D Laplacian.
 
         Arguments:
         t -- the current time index (int)
-        """
-        m = self.__specs.rows
-        n = self.__specs.cols
+        """ 
+
+        m = self.__tub.rows
+        n = self.__tub.cols
         dx = self.__dx
         dy = self.__dy
         dt = self.__dt
-        alpha = self.__specs.alpha
+        alpha = self.__tub.alpha
 
         for i in range(1, m):
             for j in range(1, n):
@@ -136,7 +148,8 @@ class Diffuser:
                         self.grid[i,j,t], self.grid[i,j-1,t], dx)
                 ylap = Diffuser.central_second_diff(self.grid[i-1,j,t], 
                         self.grid[i,j,t], self.grid[i+1,j,t], dy)
-                self.grid[i,j,t+1] = self.grid[i,j,t] + alpha  * (xlap + ylap) * dt
+                if not (self.__source and self.calculate_ellipse(i, j)):
+                    self.grid[i,j,t+1] = self.grid[i,j,t] + alpha  * (xlap + ylap) * dt
 
     def animate(self, **kwargs):
         """
@@ -148,11 +161,11 @@ class Diffuser:
         TODO: make this savable.
         """
         ims = []
-        for t in range(self.__specs.intervals-1):
+        for t in range(self.__tub.intervals-1):
             self.diffusion_step(t)
             im = plt.imshow(self.grid[:,:,t], **kwargs)
             ims.append([im])
         ani = animation.ArtistAnimation(self.__fig, ims,
-                interval=self.__specs.intervals, blit=True)
+                interval=self.__tub.intervals, blit=True)
 
         plt.show()
