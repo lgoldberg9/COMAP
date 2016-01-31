@@ -1,3 +1,8 @@
+# As of January 31 2016 (12:30 AM)
+# TODO: make changes to work with Logan's code
+#       add static plots and visualization
+#       incorporate with fluid simulation
+
 import numpy as np 
 import matplotlib.pyplot as plt 
 import matplotlib.animation as animation
@@ -50,6 +55,14 @@ class Diffuser:
     function and $\Omega \subseteq \mathbb{R}^2$.
     """
     def __init__(self, specs, source=False, fig=plt.figure()):
+        """
+        Diffuser class initialization method.
+
+        Arguments:
+        specs -- a DiffuserSpecs object
+        source -- indicates whether a heat source is present (default False)
+        fig -- where to send plots (default plt.figure())
+        """
         self.__specs = specs
         self.__dx = self.__specs.length / self.__specs.cols
         self.__dy = self.__specs.width / self.__specs.rows
@@ -61,16 +74,54 @@ class Diffuser:
         self.__fig = fig
 
     def stable(self):
+        """
+        Method to determine if current specs will produce numerically stable
+        results. It verifies the following inequality:
+        \[
+            dt \leq \frac{1}{2\alpha} \frac{(dx \ dy)^2}{(dx)^2 + (dy)^2)}
+        \]
+        Source: pending
+        """
         dx, dy, dt = [self.__dx, self.__dy, self.__dt]
         alpha = self.__specs.alpha
         return (dt <= 1.0/(2.0 * alpha) * (dx * dy)**2 / (dx**2 + dy**2))
 
     def central_second_diff(next_u, current_u, prev_u, delta):
+        """
+        Compute central finite differentiation operation using the formula:
+        \[
+            \frac{\partial^2 T}{\partial x^2} \approx \frac{T_{i+1,j} 
+                - 2 T_{i,j} + T_{i-1,j}}{(\Delta x)^2},
+        \]
+        This is O((\Delta x)^2), i.e. with quadratic error.
+
+        Arguments:
+        next_u -- T_{i+1,j} (float)
+        current_u -- T_{i,j} (float)
+        prev_u -- T_{i-1,j} (float)
+        delta -- \Delta x (float)
+        """
         num = next_u - 2 * current_u + prev_u
         den = delta * delta
         return num / den
 
     def diffusion_step(self, t):
+        """
+        Computes the next iteration of diffusion across the grid, using
+        the update step
+        \[
+            T_{i,j,t+1} = T_{i,j,t} + \alpha \Nabla^2 T_{i,j,t},
+        \]
+        where 
+        \[
+            \Nabla^2 T = \frac{\partial^2 T}{\partial x^2} + 
+            \frac{\partial^2 T}{\partial y^2}
+        \]
+        is the 2D Laplacian.
+
+        Arguments:
+        t -- the current time index (int)
+        """
         m = self.__specs.rows
         n = self.__specs.cols
         dx = self.__dx
@@ -80,6 +131,7 @@ class Diffuser:
 
         for i in range(1, m):
             for j in range(1, n):
+                # Compute numerical approximation of the Laplacian
                 xlap = Diffuser.central_second_diff(self.grid[i,j+1,t], 
                         self.grid[i,j,t], self.grid[i,j-1,t], dx)
                 ylap = Diffuser.central_second_diff(self.grid[i-1,j,t], 
@@ -87,6 +139,14 @@ class Diffuser:
                 self.grid[i,j,t+1] = self.grid[i,j,t] + alpha  * (xlap + ylap) * dt
 
     def animate(self, **kwargs):
+        """
+        Generate an animated gif of heat diffusion.
+
+        Keyword arguments:
+        passed for matplotlib customization
+
+        TODO: make this savable.
+        """
         ims = []
         for t in range(self.__specs.intervals-1):
             self.diffusion_step(t)
