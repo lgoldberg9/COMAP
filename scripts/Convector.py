@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import matplotlib.animation as animation
 
-class Diffuser:
+class Convector:
     """
     A class for running simulated heat diffusion by numerically solving the
     partial differential equation
@@ -20,7 +20,7 @@ class Diffuser:
     """
     def __init__(self, tub, source=False, fig=plt.figure()):
         """
-        Diffuser class initialization method.
+        Convector class initialization method.
 
         Arguments:
         tub -- a Bathtub object
@@ -133,38 +133,38 @@ class Diffuser:
 
     def diffusion_step(self, t):
         r"""
-Computes the next iteration of diffusion across the grid, using
-the update step
-\[
-T_{i,j,t+1} = T_{i,j,t} + \alpha \Nabla^2 T_{i,j,t},
-\]
-where 
-\[
-\Nabla^2 T = \frac{\partial^2 T}{\partial x^2} + 
-\frac{\partial^2 T}{\partial y^2}
-\]
-is the 2D Laplacian.
-
-Arguments:
-t -- the current time index (int)
-""" 
-
-m = self.__tub.rows
-n = self.__tub.cols
-dx = self.__dx
-dy = self.__dy
-dt = self.__dt
-alpha = self.__tub.alpha
-
-for i in range(1, m):
-    for j in range(1, n):
-        # Compute numerical approximation of the Laplacian
-        xlap = Diffuser.central_second_diff(self.grid[i,j+1,t], 
-                                            self.grid[i,j,t], self.grid[i,j-1,t], dx)
-        ylap = Diffuser.central_second_diff(self.grid[i-1,j,t], 
-                                            self.grid[i,j,t], self.grid[i+1,j,t], dy)
-        if not (self.__source and self.calculate_ellipse(i, j)):
-            self.grid[i,j,t+1] = self.grid[i,j,t] + alpha  * (xlap + ylap) * dt
+        Computes the next iteration of diffusion across the grid, using
+        the update step
+        \[
+        T_{i,j,t+1} = T_{i,j,t} + \alpha \Nabla^2 T_{i,j,t},
+        \]
+        where 
+        \[
+        \Nabla^2 T = \frac{\partial^2 T}{\partial x^2} + 
+        \frac{\partial^2 T}{\partial y^2}
+        \]
+        is the 2D Laplacian.
+        
+        Arguments:
+        t -- the current time index (int)
+        """ 
+        
+        m = self.__tub.rows
+        n = self.__tub.cols
+        dx = self.__dx
+        dy = self.__dy
+        dt = self.__dt
+        alpha = self.__tub.alpha
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                # Compute numerical approximation of the Laplacian
+                xlap = Convector.central_second_diff(self.grid[i,j+1,t], 
+                                                    self.grid[i,j,t], self.grid[i,j-1,t], dx)
+                ylap = Convector.central_second_diff(self.grid[i-1,j,t], 
+                                                    self.grid[i,j,t], self.grid[i+1,j,t], dy)
+                if not (self.__source and self.calculate_ellipse(i, j)):
+                    self.grid[i,j,t+1] = self.grid[i,j,t] + alpha  * (xlap + ylap) * dt
 
     def animate(self, **kwargs):
         """
