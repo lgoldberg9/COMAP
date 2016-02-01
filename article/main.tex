@@ -1,4 +1,4 @@
-\documentclass[12pt]{article} 
+\documentclass[12pt]{amsart} 
 
 \usepackage{blindtext}
 \usepackage[utf8]{inputenc}
@@ -19,6 +19,14 @@ url=true]{biblatex}
 
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.0pt}
+
+\lhead{Team \# 54040}
+\rhead{Page \thepage\ of \pageref{LastPage}}
+\cfoot{}
 
 \usepackage{amsmath, amssymb, amsthm}
 
@@ -39,6 +47,8 @@ ellipsoid geometries}
 \begin{document}
 
 \maketitle
+
+\thispagestyle{fancy}
 \tableofcontents
 
 \begin{abstract}
@@ -272,7 +282,7 @@ number of variously parametrized situations and can report on the model as a
 proof of concept.
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{../plots/diffusion.png}
+\includegraphics[width=0.8\textwidth]{../plots/diffusion-01.png}
 
 Figure 1: The heat diffusion process in the case of a stationary fluid and
 constant faucet tap. The mesh
@@ -286,7 +296,7 @@ emanating from the faucet source. Since the faucet water temperature is greater
 than the rest of the bathtub water, we observe temperature diffusion across the
 bathtub over time.
 
-The same setup yields a decreasing total variation of temperature as a function
+The same configuration yields a decreasing total variation of temperature as a function
 of time, which corroborates with the intuition that heat diffusing from a source
 increases the uniformity of the bathtub heat.
 
@@ -299,8 +309,12 @@ increases the uniformity of the bathtub heat.
 \end{center}
 
 We can also examine the case in which the faucet water is turned on only for the
-initial instant. Here, as we expect, the overall temperature level decreases
-rapidly after the first time interval, but the uniformity increases. 
+initial instant. Our proposed optimization model omits this possibility since it
+requires a fixed water flux from the faucet. However, when we formulated the
+model we relied on the intuitive justification that the overall temperature
+would diverge from the faucet temperature. We simulate the heat diffusion in a
+stationary fluid for which the ``faucet'' turns off immediately after the outset
+of the simulation. 
 
 \begin{center}
     \includegraphics[width=0.8\textwidth]{../plots/diffusion-02.png}
@@ -310,9 +324,10 @@ rapidly after the first time interval, but the uniformity increases.
     10^{-3}$, $T_{\mathrm{tub}} = 10$, and $T_{\mathrm{faucet}} = 30$.
 \end{center}
 
-However, as we modeled total variation as deviation from the faucet temperature,
-we see that the total variation receives a higher penalty than before.
-
+We see the overall temperature level decreases rapidly after the first time
+interval, but the uniformity increases.  However, as we modeled total variation
+as deviation from the faucet temperature, we see that the total variation
+receives a higher penalty than before.
 
 \begin{center}
     \includegraphics[width=0.5\textwidth]{../plots/tv-02.png}
@@ -321,14 +336,101 @@ we see that the total variation receives a higher penalty than before.
     fluid, with the same parameters as in Figure 3. The monotonicity of the TV
     function is in line with basic intution.
 \end{center}
-
 The fact that the total variation performs so poorly in this case has
 implications for the policy problem, which we will discuss in the next section.
+
 Generalizing beyond stationary fluids reveals a number of critical issues of the
-numerical techniques employed in this study.
+numerical techniques employed in this study. In stationary fluid, the
+Navier-Stokes and Poisson equations are not in play; however, by relaxing the
+stationarity constraint, we observe the effects of the numerical instability of
+our approximations to these equtaions. We simulate the case described in Figure
+1 but relax the stationarity constraint.
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{../plots/diffusion-03.png}
+
+    Figure 5: The heat diffusion process in the case of a moving fluid and
+    temporary faucet tap. The mesh dimensions are $50 \times 50$, $\alpha =
+    10^{-3}$, $T_{\mathrm{tub}} = 10$, and $T_{\mathrm{faucet}} = 30$. The
+    parameter controlling the fluid motion is set $b = 5$.
+\end{center}
+
+By comparing Figure 5 with Figure 1, we see that adding the convection process
+into the model actually improves the spread of the faucet temperature. Since
+more of the bathtub area is white in the images, we have more of the surface
+area heated by the temperature water.
+
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{../plots/tv-03.png}
+
+    Figure 6: Temperature total variation (with respect to $T_{\mathrm{faucet}}$
+    and with respect to the mean bathtub temperature over time in the case of a
+    nonstationary fluid, with the same parameters as in Figure 5. The TV
+    functions are considerably less well behaved, but notably the TV with
+    respect to $T_{\mathrm{faucet}}$ decreases to a lower level than the same TV
+    in Figure 2.
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{../plots/diffusion-04.png}
+
+    Figure 7: The heat diffusion process in the case of a moving fluid and
+    temporary faucet tap. The mesh dimensions are $50 \times 50$, $\alpha =
+    10^{-3}$, $T_{\mathrm{tub}} = 10$, and $T_{\mathrm{faucet}} = 30$. The
+    parameter controlling the fluid motion is set $b = 8$. The numerical
+    instability of the simulation causes the complete whitewashing by the final
+    frame.
+\end{center}
+
+By comparing Figure 5 with Figure 1, we see that adding the convection process
+into the model actually improves the spread of the faucet temperature. Since
+more of the bathtub area is white in the images, we have more of the surface
+area heated by the temperature water.
+
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{../plots/tv-04.png}
+
+    Figure 8: Temperature total variation (with respect to $T_{\mathrm{faucet}}$
+    and with respect to the mean bathtub temperature over time in the case of a
+    nonstationary fluid, with the same parameters as in Figure 5. The TV
+    functions are considerably less well behaved, but notably the TV with
+    respect to $T_{\mathrm{faucet}}$ decreases to a lower level than the same TV
+    in Figure 2.
+\end{center}
+
+
+The numerical instability persists even when the faucet is turned off, as in
+Figure 3.
 
 
 \section{Discussion}
+
+As we showed in the previous section, our current numerical implementation of
+the Navier-Stokes equations are highly sensitive to the initial conditions of
+the model. Though a careful calibration of the deep parameters (e.g. $\rho$,
+$\alpha$, $\beta$, etc.) and mesh granularity might produce more stable results,
+we doubt that this would be sufficient. Fundamentally, forward Euler
+approximations of the solutions to differential equations encourage volatility 
+by accumulating the relatively small errors from the individual step
+calculations into catastrophically unstable general results. To prevent this
+kind of instability requires a re-examination of the numerical approach to
+approximating these PDEs.
+
+Perhaps somewhat surprising, then, is the fact that diffusion alone seems to
+abstain from these stability problems. Indeed, if numerical differentiation is
+the problem, then diffusion, which computes the Laplacian, should produce even
+greater error. However, due to the simplicity of the stability conditions for
+diffusion (for example, see Barba's discussion \cite{12-steps}), the checks on
+stability can be readily accounted for and poor configuration choices can simply
+be avoided. This was the approach of the study. From a cursory glance at the
+Navier-Stokes and Poisson equations we understand that the stability conditions
+are not necessarily so simple, but incorporating them should help improve the
+reliability of the model.
+
+That maintaining an active source (in the case of the bathtub narrative, a
+running faucet) reduces the total variation of the temperature in the bathtub
+supports our formulation of the optimization problem and also indicates suitable
+choices for $\gamma$. If the optimization problem requires a bound
 
 \nocite{*}
 
