@@ -35,7 +35,8 @@ class Convector:
         self.grid = np.ones((self.__tub.rows + 1, self.__tub.cols + 1,
                              self.__tub.intervals))  * self.__tub.temp
         self.__source = source
-        self.__ellipse = (0,0,0,0)
+        self.__source_ellipsoid = (0,0,0,0,0)
+        self.__boundary_ellipsoid = (0,0,0,0,0)
         self.__fig = fig
 
     def get_dx():
@@ -61,8 +62,8 @@ class Convector:
         alpha = self.__tub.alpha
         return (dt <= 1.0/(2.0 * alpha) * (dx * dy)**2 / (dx**2 + dy**2))
 
-    def define_boundary(self):
-        pass
+    def define_boundary(self, ellipsoid):
+        self.__boundary_ellipsoid = ellipsoid
 
     def ij_to_xy(self, i, j):
         """
@@ -72,19 +73,25 @@ class Convector:
         return ((j/self.__tub.cols - 1/2)*self.__tub.length, (1/2 - \
                                                               i/self.__tub.rows)*self.__tub.width)
 
-    def calculate_ellipse(self, i, j):
+    def check_ellipsoid(self, i, j, ellipsoid):
         x, y = self.ij_to_xy(i, j)
-        h, k, a, b = self.__ellipse
-        return np.power((x - h) / a, 2.0) + np.power((y - k) / b, 2.0) <= 1.0
+        h, k, a, b, p = ellipsoid
+        return np.power((x - h) / a, p) + np.power((y - k) / b, p) <= 1.0
+
+    def calculate_ellipsoid(self, i, j):
+        return check_ellipsoid(self, i, j, self.__source_ellipsoid)
+
+    def mask_ellipsoid(self, i, j):
+        return check_ellipsoid(self, i, j, self.__boundary_ellipsoid)
 
 
-    def setup_source(self, ellipse, temperature, source=False):
+    def setup_source(self, ellipsoid, temperature, source=False):
         """ 
         Add a \"faucet\" source to the first iteration of the diffusion 
         simulation. If the argument source is True, make this source permanent.
 
         Arguments:
-        ellipse -- a list of 4 floats [h,k,a,b] which will define the inequality
+        ellipsoid -- a list of 4 floats [h,k,a,b] which will define the inequality
         \[
         (x  - h)^2 / a^2 + (y - k)^2 / b^2 <= 1,
         \]
@@ -96,14 +103,14 @@ class Convector:
         source -- determines if the faucet source remains on (default False)
         """
         self.__source = source
-        self.__ellipse = tuple(ellipse)
+        self.__source_ellipsoid = tuple(ellipsoid)
         if self.__source:
             time = self.__tub.intervals
         else:
             time = 1
         for i in range(self.__tub.rows):
             for j in range(self.__tub.cols):
-                if self.calculate_ellipse(i, j):
+                if self.calculate_ellipsoid(i, j):
                     for t in range(time):
                         self.grid[i, j, t] = temperature
 
@@ -157,24 +164,25 @@ class Convector:
         dt = self.__dt
         alpha = self.__tub.alpha
         
-        for i in range(1, m-1):
-            for j in range(1, n-1):
-                # Computes the gradient
-                xgrad = Convector.forward_diff(self.grid[i,j+1,t],
-                                               self.grid[i,j,t], dx)
-                ygrad = Convector.forward_diff(self.grid[i-1,j,t],
-                                               self.grid[i,j,t], dy)
-                # Compute numerical approximation of the Laplacian
-                xlap = Convector.central_second_diff(self.grid[i,j+1,t], 
-                                                    self.grid[i,j,t], self.grid[i,j-1,t], dx)
-                ylap = Convector.central_second_diff(self.grid[i-1,j,t], 
-                                                    self.grid[i,j,t], self.grid[i+1,j,t], dy)
+        for i in range(m):
+            for j in range(n):
+                if self.mask_ellipsoid(i, j):
+                    # Computes the gradient
+                    xgrad = Convector.forward_diff(self.grid[i,j+1,t],
+                                                   self.grid[i,j,t], dx)
+                    ygrad = Convector.forward_diff(self.grid[i-1,j,t],
+                                                   self.grid[i,j,t], dy)
+                    # Compute numerical approximation of the Laplacian
+                    xlap = Convector.central_second_diff(self.grid[i,j+1,t], 
+                                                        self.grid[i,j,t], self.grid[i,j-1,t], dx)
+                    ylap = Convector.central_second_diff(self.grid[i-1,j,t], 
+                                                        self.grid[i,j,t], self.grid[i+1,j,t], dy)
 
-                update = alpha * (xlap + ylap) - (xgrad * vfield.u[i,j,t] +
-                                                  ygrad * vfield.v[i,j,t])
+                    update = alpha * (xlap + ylap) - (xgrad * vfield.u[i,j,t] +
+                                                      ygrad * vfield.v[i,j,t])
 
-                if not (self.__source and self.calculate_ellipse(i, j)):
-                    self.grid[i,j,t+1] = self.grid[i,j,t] + update * dt
+                    if not (self.__source and self.calculate_ellipsoid(i, j)):
+                        self.grid[i,j,t+1] = self.grid[i,j,t] + update * dt
 
     def animate(self, **kwargs):
         """
