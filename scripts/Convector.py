@@ -18,7 +18,7 @@ class Convector:
     where $u : \Omega \times \mathbb{R} \to \mathbb{R}$ is a temperature 
     function and $\Omega \subseteq \mathbb{R}^2$.
     """
-    def __init__(self, tub, vfield, source=False, fig=plt.figure()):
+    def __init__(self, tub, source=False, fig=plt.figure()):
         """
         Convector class initialization method.
 
@@ -28,7 +28,6 @@ class Convector:
         fig -- where to send plots (default plt.figure())
         """
         self.__tub = tub
-        self.__vfield = vfield
         self.__dx = self.__tub.length / self.__tub.cols
         self.__dy = self.__tub.width / self.__tub.rows
         self.__dt = self.__tub.duration / self.__tub.intervals
@@ -46,6 +45,9 @@ class Convector:
 
     def get_dt():
         return self.__dt
+    
+    def set_vfield(vfield):
+        self.__vfield = vfield
 
 
     def stable(self):
