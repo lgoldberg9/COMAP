@@ -1,31 +1,181 @@
-\documentclass[12pt,doc]{apa6} 
+\documentclass[12pt]{article} 
 
 \usepackage{blindtext}
+\usepackage[utf8]{inputenc}
 \usepackage[american]{babel}
-\usepackage[style=chicago,
-            backend=biber,
-            natbib=true,
-            url=true]{biblatex}
-\DeclareLanguageMapping{american}{american-apa}
+
+\usepackage{csquotes}
+\usepackage[style=numeric,
+    citestyle=numeric,
+    backend=biber,
+    natbib=true,
+url=true]{biblatex}
+
 \usepackage[hidelinks]{hyperref}
 \usepackage{setspace}
-\usepackage{txfonts}
 \usepackage{microtype}
 
 \bibliography{main.bib}
-\title{Ethical Academic Software Practices: the Case for Behavior-Driven
-Development}
-\author{David Kraemer}
-\date{November 24, 2015}
-\shorttitle{Behavior-Driven Development in Academia}
-\affiliation{Grinnell College}
-\leftheader{Kraemer}
-\doublespacing
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{amsmath, amssymb, amsthm}
+
+
+% Custom macros
+\newcommand{\la}{\overleftarrow}
+\newcommand{\ra}{\overrightarrow}
+\newcommand{\ca}{\overleftrightarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\DeclareMathOperator*{\argmin}{\mathrm{arg\,min}}
+
+\title{Numerical simulation of two-dimensional heat convection-diffusion with
+ellipsoid geometries}
+
+\date{February 1, 2016}
 
 \begin{document}
 
-    \maketitle
+\maketitle
 
-       \printbibliography
+\begin{abstract}
+    This is a test.
+\end{abstract}
+
+\section{Introduction}
+
+\section{Model overview}
+
+Throughout this work we will denote the spatial region under scrutiny by
+$\Omega \subseteq \R^2$, and we write $\partial \Omega$ to indicate the
+boundary of the region. The function $T : \Omega \times \R_{\geq 0} \to \R$
+will denote the temperature $T = T(x,y,t)$, and the functions $v_x : \Omega
+\times \R_{\geq 0} \to \R$ and $v_y : \Omega \times \R_{\geq 0} \to \R$ will
+denote $v_x = v_x(x,y,t)$ the horizontal and $v_y = v_y(x,y,t)$ the vertical
+components of the velocity of the fluid flow. 
+
+\subsection{Two-dimensional Navier-Stokes formulation}
+
+The Navier-Stokes equations for an incompressible fluid are given by
+\begin{align}
+    \nabla \cdot v &= 0 \\
+    \frac{\partial v}{\partial t} + (v \cdot \nabla) v &= -
+    \frac{1}{\rho} \nabla p + \alpha \nabla^2 v
+    \label{eq:\theequation}
+\end{align}
+where $v = (v_x, v_y)$ is the fluid velocity, $\rho$ denotes mass density of
+the fluid, and $p$ denotes pressure. Incompressibility is incorporated
+through Equation (), since nonzero divergence implies the presence of either
+sources or sinks of fluid. Now because $v$ is two-dimensional, Equation
+() actually implies a pair of partial differential equations for both the $x$
+and $y$ components. The pressure $p$ is determined through the Poisson equation
+\begin{equation}
+    \nabla^2 p = b,
+    \label{eq:\theequation}
+\end{equation}
+where $b$ is taken as a constant term for the purposes of this study. Many
+wonderful resources exist online for understanding the formulation of these
+equations, specifically Barba's work \cite{12-steps}, but we do not include a
+derivation of these relations here.
+
+\subsection{Heat convection-diffusion equation}
+
+The heat convection-diffusion equation found in the literature
+\cite{convection-diffusion},
+\begin{equation}
+    \frac{\partial T}{\partial t} - \alpha \nabla^2 T + v \cdot \nabla T =
+    0,
+    \label{eq:\theequation}
+\end{equation}
+is a combination of parabolic and hyperbolic partial differential equations
+relating the temporal change in temperature with its spatial diffusion and
+the flow of heat packets elsewhere in the fluid.     Here, $\nabla$ is the
+gradient operator $\left( \frac{\partial}{\partial x},
+\frac{\partial}{\partial y} \right)$, $\nabla^2$ denotes the Laplacian
+$\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}$, $v =
+(v_x, v_y)$ denotes the fluid velocity vector, and $\alpha$ is a diffusivity
+constant.
+
+The ubiquity of parabolic PDEs in modeling scientific phenomenon is well
+known, since it captures the essence of diffusive processes. Elliptic PDEs
+often arise out of physical environments with a present potential field
+(e.g.  gravitational or electrostatic), or in the cases of incompressible
+fluid flow \cite{convection-diffusion, ames}. We use the latter for
+motivating this model, as bathtub water exhibits the standard
+characteristics of incompressible fluid.
+
+\subsection{Numerical methods}
+
+We proceed by providing a brief overview of the numerical methods used in
+this study. To approximate the solution to a PDE, we discretize the region
+$\Omega$ under consideration into a coordinate mesh. For convention, we
+write $T_{i,j}^{n}$ to denote the temperature at the $(i,j)$ mesh coordinate
+at the time interval $t=n$. 
+
+Modifying the notation employed by Ames \cite{ames}, we establish the
+following nomenclature for the numerical operations in the model:
+
+\begin{center}
+    \begin{tabular}[]{ll}
+        $\ra{\Delta_i} T_{i,j}^n = T_{i+1,j}^n - T_{i,j}^n$ & Forward
+        differencing \\
+        $\la{\Delta_i} T_{i,j}^n = T_{i,j}^n - T_{i-1,j}^n$ & Backward differencing \\
+        $\ca{\Delta_i} T_{i,j}^n = T_{i+1/2,j}^n - T_{i-1/2,j}^n$ & Central differencing
+    \end{tabular}
+\end{center}
+
+For 
+
+\subsection{Bathtub optimization problem}
+
+The goal of this study is to identify a process through which the avid bather
+may seek to achieve uniform water temperature, ideally wasting as little water
+as possible. Using the aforementioned numerical models to simulate bathtub
+dynamics, we propose an optimization problem by which to approach this goal. Let
+$t_{\mathrm{total}}$ indicate the period in which the faucet is turned on, let
+$T_{\mathrm{f}}$ denote the temperature of the water in the faucet, and let
+$V(t)$ denote the total volume of water that has left the faucet. We assume that
+$\frac{dV}{dt} = c$, i.e., the strength of the faucet is fixed at a chosen $c$ throughout the
+duration of the bath. Now, consider the surface integral
+\begin{equation}
+    f_{\mathrm{cont}}(t) = \int_{\Omega} \abs{T(x,y,t) - T_{\mathrm{f}}} \ d\omega.
+    \label{eq:\theequation}
+\end{equation}
+We propose the minimization problem
+\begin{equation}
+    \argmin_{c} V(t_{\mathrm{total}}) \quad \text{such that} \quad \int_{0}^{t_{\mathrm{total}}}
+    f_{\mathrm{cont}}(t) \ dt < \gamma,
+    \label{eq:\theequation}
+\end{equation}
+where $\gamma$ is some tolerance for variation. This is minimization
+problem is subject to a total variation constraint, which has been subject to
+considerable study, especially within the context of medical imaging
+\cite{Zhang2005}.
+
+This optimization leads to a natural discretization. We rewrite:
+\begin{align}
+    V(t) &\longrightarrow V^t \\
+    \frac{dV}{dt} = c &\longrightarrow V^{t+1} - V^t = c \\
+    f_{\mathrm{cont}}(t) = \int_{\Omega} \abs{T(x,y,t) - T_{\mathrm{f}}} \
+    d\omega &\longrightarrow f_{\mathrm{disc}}(t) = \sum_{x,y}\abs{T(x,y,t) -
+        T_{\mathrm{f}}},
+\end{align}
+which translate to the problem
+\begin{equation}
+    \argmin_{c} V^{t_{\mathrm{total}}} \quad \text{such that} \quad
+    \sum_{t=0}^{t_{\mathrm{total}}} f_{\mathrm{disc}}(t) < \gamma.
+    \label{eq:\theequation}
+\end{equation}
+
+\section{Empirical results}
+
+\section{Analysis}
+
+\section{Discussion}
+
+\nocite{air}
+
+\printbibliography
 
 \end{document}

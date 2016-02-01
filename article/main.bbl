@@ -18,154 +18,104 @@
 
 
 \refsection{0}
-  \sortlist{apa}{apa}
-    \entry{hsu}{article}{}
-      \name{author}{2}{}{%
-        {{uniquename=0,hash=0710cc9057cfb90cf2d571b077dc3089}{Hsu}{H\bibinitperiod}{Jeremy}{J\bibinitperiod}{}{}{}{}}%
-        {{uniquename=0,hash=18b3f7db1f720d25eae10b844979a0fe}{InnovationNewsDaily}{I\bibinitperiod}{}{}{}{}{}{}}%
-      }
-      \strng{namehash}{6a706a928fec621f00e10ec6a6311156}
-      \strng{fullhash}{6a706a928fec621f00e10ec6a6311156}
-      \field{sortinit}{H}
-      \field{sortinithash}{82012198d5dfa657b8c4a168793268a6}
-      \field{labelyear}{2012}
-      \field{labelmonth}{04}
-      \field{datelabelsource}{year}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Scientific American}
-      \field{month}{04}
-      \field{title}{Secret Computer Code Threatens Science}
-      \field{urlday}{01}
-      \field{urlmonth}{11}
-      \field{urlyear}{2015}
-      \field{year}{2012}
-      \verb{url}
-      \verb http://www.scientificamerican.com/article/secret-computer-code-threatens-science/
-      \endverb
-    \endentry
-    \entry{johnson}{article}{}
+  \sortlist{nty}{nty}
+    \entry{ames}{book}{}
       \name{author}{1}{}{%
-        {{uniquename=0,hash=2f9348c97c347de7d62811891f0529c9}{Johnson}{J\bibinitperiod}{Deborah\bibnamedelima G.}{D\bibinitperiod\bibinitdelim G\bibinitperiod}{}{}{}{}}%
+        {{hash=a87eee824439312dcca8f701d6f1ca47}{Ames}{A\bibinitperiod}{William\bibnamedelima F.}{W\bibinitperiod\bibinitdelim F\bibinitperiod}{}{}{}{}}%
       }
       \list{location}{1}{%
-        {New York, NY, USA}%
+        {11 Fifth Avenue, New York, New York 10003}%
       }
       \list{publisher}{1}{%
-        {ACM}%
+        {Academic Press,Inc.}%
       }
-      \strng{namehash}{2f9348c97c347de7d62811891f0529c9}
-      \strng{fullhash}{2f9348c97c347de7d62811891f0529c9}
-      \field{sortinit}{J}
-      \field{sortinithash}{ec3950a647c092421b9fcca6d819504a}
-      \field{labelyear}{2008}
-      \field{labelmonth}{10}
-      \field{datelabelsource}{year}
+      \strng{namehash}{a87eee824439312dcca8f701d6f1ca47}
+      \strng{fullhash}{a87eee824439312dcca8f701d6f1ca47}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{issn}{0001-0782}
-      \field{journaltitle}{Commun. ACM}
-      \field{month}{10}
-      \field{number}{10}
-      \field{title}{Computing Ethics: Computer Experts: Guns-for-hire or Professionals?}
-      \field{volume}{51}
-      \field{year}{2008}
-      \field{pages}{24\bibrangedash 26}
-      \range{pages}{3}
-      \verb{doi}
-      \verb 10.1145/1400181.1400190
-      \endverb
-      \verb{url}
-      \verb http://doi.acm.org/10.1145/1400181.1400190
-      \endverb
+      \field{title}{Numerical Methods for Partial Differential Equations}
+      \field{year}{1977}
     \endentry
-    \entry{merali}{article}{}
+    \entry{convection-diffusion}{misc}{}
+      \field{sortinit}{C}
+      \field{sortinithash}{59f25d509f3381b07695554a9f35ecb2}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Wikipedia}
+      \field{title}{Convection-diffusion equation}
+      \verb{url}
+      \verb https://en.wikipedia.org/wiki/Convection-deffusion_equation
+      \endverb
+      \warn{\item Datamodel: Entry 'convection-diffusion' (main.bib): Invalid format '2016-1-31' of date field 'urldate' - ignoring}
+    \endentry
+    \entry{12-steps}{misc}{}
       \name{author}{1}{}{%
-        {{uniquename=0,hash=8752e74f63939f3700ba0050306ae639}{Merali}{M\bibinitperiod}{Zeeya}{Z\bibinitperiod}{}{}{}{}}%
+        {{hash=bd812219fbeb052528f69a68b444bd3a}{group}{g\bibinitperiod}{Lorena\bibnamedelimb A.\bibnamedelimi Barba}{L\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim B\bibinitperiod}{}{}{}{}}%
       }
-      \strng{namehash}{8752e74f63939f3700ba0050306ae639}
-      \strng{fullhash}{8752e74f63939f3700ba0050306ae639}
-      \field{sortinit}{M}
-      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
-      \field{labelyear}{2010}
-      \field{labelmonth}{10}
-      \field{datelabelsource}{year}
+      \strng{namehash}{bd812219fbeb052528f69a68b444bd3a}
+      \strng{fullhash}{bd812219fbeb052528f69a68b444bd3a}
+      \field{sortinit}{g}
+      \field{sortinithash}{1c854ef9177a91bf894e66485bdbd3ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Nature}
-      \field{month}{10}
-      \field{title}{Error: why scientific programming does not compute}
-      \field{urlday}{01}
-      \field{urlmonth}{11}
-      \field{urlyear}{2015}
-      \field{volume}{467}
-      \field{year}{2010}
+      \field{title}{CFD Python: 12 steps to Navier-Stokes}
       \verb{url}
-      \verb http://www.nature.com/news/2010/101013/full/467775a.html
+      \verb http://lorenabarba.com/blog/cfd-python-12-steps-to-navier-stokes/
       \endverb
+      \warn{\item Datamodel: Entry '12-steps' (main.bib): Invalid format '2016-1-31' of date field 'urldate' - ignoring}
     \endentry
-    \entry{miller}{article}{}
+    \entry{air}{misc}{}
       \name{author}{1}{}{%
-        {{uniquename=0,hash=19a46ccebbf378a3f4b35fdcc0870017}{Miller}{M\bibinitperiod}{Greg}{G\bibinitperiod}{}{}{}{}}%
+        {{hash=bdd68c50e60316e0d4e3941d10da5b9a}{Toolbox}{T\bibinitperiod}{The\bibnamedelima Engineering}{T\bibinitperiod\bibinitdelim E\bibinitperiod}{}{}{}{}}%
       }
-      \strng{namehash}{19a46ccebbf378a3f4b35fdcc0870017}
-      \strng{fullhash}{19a46ccebbf378a3f4b35fdcc0870017}
-      \field{sortinit}{M}
-      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
-      \field{labelyear}{2006}
-      \field{labelmonth}{12}
-      \field{datelabelsource}{year}
+      \strng{namehash}{bdd68c50e60316e0d4e3941d10da5b9a}
+      \strng{fullhash}{bdd68c50e60316e0d4e3941d10da5b9a}
+      \field{sortinit}{T}
+      \field{sortinithash}{423d138a005a533b47e6475e39378bf2}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Science}
-      \field{month}{12}
-      \field{title}{A scientist's nightmare: software problem leads to five retractions}
-      \field{urlday}{01}
-      \field{urlmonth}{11}
-      \field{urlyear}{2015}
-      \field{volume}{314}
-      \field{year}{2006}
+      \field{title}{Dry Air Properties}
+      \field{urlday}{30}
+      \field{urlmonth}{01}
+      \field{urlyear}{2016}
       \verb{url}
-      \verb http://www.sciencemag.org/content/314/5807/1856
+      \verb http://www.engineeringtoolbox.com/dry-air-properties-d_973.html
       \endverb
     \endentry
-    \entry{narayanan}{article}{}
+    \entry{Zhang2005}{inbook}{}
       \name{author}{2}{}{%
-        {{uniquename=0,hash=95dc795a2be14c50fb6a924acc135ff8}{Narayanan}{N\bibinitperiod}{Arvind}{A\bibinitperiod}{}{}{}{}}%
-        {{uniquename=0,hash=d71d4e22a512b99daa7807bb1ac96a4b}{Vallor}{V\bibinitperiod}{Shannon}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=fa1724f191992cbda2c05851ae36ffdc}{Zhang}{Z\bibinitperiod}{Xiao-Qun}{X\bibinithyphendelim Q\bibinitperiod}{}{}{}{}}%
+        {{hash=204f65e978ddf5f2e099f9c54980b8ca}{Froment}{F\bibinitperiod}{Jacques}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=f7babc8fccb57abd2ce3ec7dcd7a54e8}{Rangarajan}{R\bibinitperiod}{Anand}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=3106f4445ee764d91ed3427f2f9d31b6}{Vemuri}{V\bibinitperiod}{Baba}{B\bibinitperiod}{}{}{}{}}%
+        {{hash=0d5324d6d67624227c796150d7509632}{Yuille}{Y\bibinitperiod}{Alan\bibnamedelima L.}{A\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
       }
       \list{location}{1}{%
-        {New York, NY, USA}%
+        {Berlin, Heidelberg}%
       }
       \list{publisher}{1}{%
-        {ACM}%
+        {Springer Berlin Heidelberg}%
       }
-      \strng{namehash}{a84567a56b066b2f739250954232d920}
-      \strng{fullhash}{a84567a56b066b2f739250954232d920}
-      \field{sortinit}{N}
-      \field{sortinithash}{925374ca63e7594de7fafdb83e64d41d}
-      \field{labelyear}{2014}
-      \field{labelmonth}{03}
-      \field{datelabelsource}{year}
+      \strng{namehash}{2c0d75754cd423684c98bb76802547f1}
+      \strng{fullhash}{2c0d75754cd423684c98bb76802547f1}
+      \field{sortinit}{Z}
+      \field{sortinithash}{fdda4caaa6b5fa63e0c081dcb159543a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{issn}{0001-0782}
-      \field{journaltitle}{Commun. ACM}
-      \field{month}{03}
-      \field{number}{3}
-      \field{title}{Why Software Engineering Courses Should Include Ethics Coverage}
-      \field{urlday}{01}
-      \field{urlmonth}{11}
-      \field{urlyear}{2015}
-      \field{volume}{57}
-      \field{year}{2014}
-      \field{pages}{23\bibrangedash 25}
-      \range{pages}{3}
+      \field{chapter}{Constrained Total Variation Minimization and Application in Computerized Tomography}
+      \field{isbn}{978-3-540-32098-2}
+      \field{title}{Energy Minimization Methods in Computer Vision and Pattern Recognition: 5th International Workshop, EMMCVPR 2005, St. Augustine, FL, USA, November 9-11, 2005. Proceedings}
+      \field{year}{2005}
+      \field{pages}{456\bibrangedash 472}
+      \range{pages}{17}
       \verb{doi}
-      \verb 10.1145/2566966
+      \verb 10.1007/11585978_30
       \endverb
       \verb{url}
-      \verb http://doi.acm.org/10.1145/2566966
+      \verb http://dx.doi.org/10.1007/11585978_30
       \endverb
     \endentry
   \endsortlist
