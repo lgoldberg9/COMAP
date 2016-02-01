@@ -39,8 +39,8 @@ url=true]{biblatex}
 \newcommand{\abs}[1]{\left|#1\right|}
 \DeclareMathOperator*{\argmin}{\mathrm{arg\,min}}
 
-\title{Numerical simulation of two-dimensional heat convection-diffusion with
-ellipsoid geometries}
+\title{Keeping it even: maintaining evenly distributed temperatures within a
+two-dimensional bathtub}
 
 \date{February 1, 2016}
 
@@ -56,7 +56,36 @@ ellipsoid geometries}
 
 \section{Introduction}
 
-The basis of this paper is to develop a model that permits a person to maintain their preferred temperature of the bathtub water while minimizing water consumption.    
+The avid bather faces the constant struggle in balancing her ability to relax in
+the bathtub and in keeping an evenly distributed water temperature within the
+tub. For such a bather a quality bath is a necessity. Necessity, the mother of
+invention, requires that quality be sought after and maximized---the bather
+should need to worry as little as possible about the quality of the temperature
+distribution in the tub. To help our bather, we seek to give a precise
+determination of quality and pose a question in whose answer provides the best
+such quality. Yet living in a world of scarce resources demands attention
+towards the cost of our decisions. Our underlying quest for quality needs
+temperament from reality, and we shall formulate the problem as a trade-off
+between these competing camps.
+
+In this work, we begin by developing a model for the evolution of heat in a
+bathtub. Heat travels through a fluid by two means: diffusion and convection.
+The diffusion process refers to the natural spread of heat from high-temperature
+peaks to low-temperature valleys. This process is fundamentally spatial and
+occurs even in the context of a stationary fluid. The convection process, by
+contrast, refers to the spread of heat subject to a moving fluid. Heat can flow
+with a fluid to spread along the direction the fluid travels; this process helps
+to explain the behavior of ocean conveyor belts and hurricanes. In order to
+optimize the distribution of heat, we need to understand how heat evolves. This
+will be the primary scope of our paper.
+
+Our work proceeds as follow. Section 2 describes the high-level view of the
+computational model for simulating the evolution of heat in a bathtub in the
+context of both a stationary and moving fluid. It also outlines the numerical
+methods we will use in order to approximate the underlying diffusion and
+convection processes. We also propose, but do not solve, the bather's
+optimization problem. Section 3 provides the results of our initial 
+
 
 \section{Model overview}
 
@@ -275,6 +304,8 @@ calibrate our models and properly run experiments. However, we simulated a
 number of variously parametrized situations and can report on the model as a
 proof of concept.
 
+\subsection{Heat diffusion in a stationary fluid}
+
 \begin{center}
 \includegraphics[width=0.8\textwidth]{../plots/diffusion-01.png}
 
@@ -340,6 +371,8 @@ function is in line with basic intution.}
 \end{center}
 The fact that the total variation performs so poorly in this case has
 implications for the policy problem, which we will discuss in the next section.
+
+\subsection{Nonstationarity and numerical stability}
 
 Generalizing beyond stationary fluids reveals a number of critical issues of the
 numerical techniques employed in this study, but also provides useful
