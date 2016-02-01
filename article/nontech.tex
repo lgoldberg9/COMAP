@@ -30,154 +30,22 @@ url=true]{biblatex}
 \newcommand{\abs}[1]{\left|#1\right|}
 \DeclareMathOperator*{\argmin}{\mathrm{arg\,min}}
 
-\title{Numerical simulation of two-dimensional heat convection-diffusion with
-ellipsoid geometries}
-
+\title{The Perfect Bathtub Experience}
 \date{February 1, 2016}
 
 \begin{document}
 
 \maketitle
 
-\begin{abstract}
-	Ever wonder what's the how to keep your warm bath at the right temperature while helping the environment? This paper introduces and analyzes two-dimensional heat convection-diffusion through the Navier-Stokes formulation of fluid-flow and the classical heat equation. Our mission is to determine the optimal amount of water necessary to maintain the perfect bathtub temperature. BLAH BLAH BLAH
-\end{abstract}
+    Ever wonder what's the how to keep your warm bath at the right temperature? We have good news for you! We have discovered an optimal strategy that permits you to maintain the perfect bathtub temperature. We'll begin our discussion of this perfect strategy with how exactly water in the bathtub maintains its warmth.
 
-\section{Introduction}
-
-The basis of this paper is to develop a model that permits a person to maintain their preferred temperature of the bathtub water while minimizing water consumption.    
-
-\section{Model overview}
-
-Throughout this work we will denote the spatial region under scrutiny by
-$\Omega \subseteq \R^2$, and we write $\partial \Omega$ to indicate the
-boundary of the region. The function $T : \Omega \times \R_{\geq 0} \to \R$
-will denote the temperature $T = T(x,y,t)$, and the functions $v_x : \Omega
-\times \R_{\geq 0} \to \R$ and $v_y : \Omega \times \R_{\geq 0} \to \R$ will
-denote $v_x = v_x(x,y,t)$ the horizontal and $v_y = v_y(x,y,t)$ the vertical
-components of the velocity of the fluid flow. 
-
-\subsection{Two-dimensional Navier-Stokes formulation}
-
-The Navier-Stokes equations for an incompressible fluid are given by
-\begin{align}
-    \nabla \cdot v &= 0 \\
-    \frac{\partial v}{\partial t} + (v \cdot \nabla) v &= -
-    \frac{1}{\rho} \nabla p + \alpha \nabla^2 v
-    \label{eq:\theequation}
-\end{align}
-where $v = (v_x, v_y)$ is the fluid velocity, $\rho$ denotes mass density of
-the fluid, and $p$ denotes pressure. Incompressibility is incorporated
-through Equation (), since nonzero divergence implies the presence of either
-sources or sinks of fluid. Now because $v$ is two-dimensional, Equation
-() actually implies a pair of partial differential equations for both the $x$
-and $y$ components. The pressure $p$ is determined through the Poisson equation
-\begin{equation}
-    \nabla^2 p = b,
-    \label{eq:\theequation}
-\end{equation}
-where $b$ is taken as a constant term for the purposes of this study. Many
-wonderful resources exist online for understanding the formulation of these
-equations, specifically Barba's work \cite{12-steps}, but we do not include a
-derivation of these relations here.
-
-\subsection{Heat convection-diffusion equation}
-
-The heat convection-diffusion equation found in the literature
-\cite{convection-diffusion},
-\begin{equation}
-    \frac{\partial T}{\partial t} - \alpha \nabla^2 T + v \cdot \nabla T =
-    0,
-    \label{eq:\theequation}
-\end{equation}
-is a combination of parabolic and hyperbolic partial differential equations
-relating the temporal change in temperature with its spatial diffusion and
-the flow of heat packets elsewhere in the fluid.     Here, $\nabla$ is the
-gradient operator $\left( \frac{\partial}{\partial x},
-\frac{\partial}{\partial y} \right)$, $\nabla^2$ denotes the Laplacian
-$\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}$, $v =
-(v_x, v_y)$ denotes the fluid velocity vector, and $\alpha$ is a diffusivity
-constant.
-
-The ubiquity of parabolic PDEs in modeling scientific phenomenon is well
-known, since it captures the essence of diffusive processes. Elliptic PDEs
-often arise out of physical environments with a present potential field
-(e.g.  gravitational or electrostatic), or in the cases of incompressible
-fluid flow \cite{convection-diffusion, ames}. We use the latter for
-motivating this model, as bathtub water exhibits the standard
-characteristics of incompressible fluid.
-
-\subsection{Numerical methods}
-
-We proceed by providing a brief overview of the numerical methods used in
-this study. To approximate the solution to a PDE, we discretize the region
-$\Omega$ under consideration into a coordinate mesh. For convention, we
-write $T_{i,j}^{n}$ to denote the temperature at the $(i,j)$ mesh coordinate
-at the time interval $t=n$. 
-
-Modifying the notation employed by Ames \cite{ames}, we establish the
-following nomenclature for the numerical operations in the model:
-
-\begin{center}
-    \begin{tabular}[]{ll}
-        $\ra{\Delta_i} T_{i,j}^n = T_{i+1,j}^n - T_{i,j}^n$ & Forward
-        differencing \\
-        $\la{\Delta_i} T_{i,j}^n = T_{i,j}^n - T_{i-1,j}^n$ & Backward differencing \\
-        $\ca{\Delta_i} T_{i,j}^n = T_{i+1/2,j}^n - T_{i-1/2,j}^n$ & Central differencing
-    \end{tabular}
-\end{center}
-
-For 
-
-\subsection{Bathtub optimization problem}
-
-The goal of this study is to identify a process through which the avid bather
-may seek to achieve uniform water temperature, ideally wasting as little water
-as possible. Using the aforementioned numerical models to simulate bathtub
-dynamics, we propose an optimization problem by which to approach this goal. Let
-$t_{\mathrm{total}}$ indicate the period in which the faucet is turned on, let
-$T_{\mathrm{f}}$ denote the temperature of the water in the faucet, and let
-$V(t)$ denote the total volume of water that has left the faucet. We assume that
-$\frac{dV}{dt} = c$, i.e., the strength of the faucet is fixed at a chosen $c$ throughout the
-duration of the bath. Now, consider the surface integral
-\begin{equation}
-    f_{\mathrm{cont}}(t) = \int_{\Omega} \abs{T(x,y,t) - T_{\mathrm{f}}} \ d\omega.
-    \label{eq:\theequation}
-\end{equation}
-We propose the minimization problem
-\begin{equation}
-    \argmin_{c} V(t_{\mathrm{total}}) \quad \text{such that} \quad \int_{0}^{t_{\mathrm{total}}}
-    f_{\mathrm{cont}}(t) \ dt < \gamma,
-    \label{eq:\theequation}
-\end{equation}
-where $\gamma$ is some tolerance for variation. This is minimization
-problem is subject to a total variation constraint, which has been subject to
-considerable study, especially within the context of medical imaging
-\cite{Zhang2005}.
-
-This optimization leads to a natural discretization. We rewrite:
-\begin{align}
-    V(t) &\longrightarrow V^t \\
-    \frac{dV}{dt} = c &\longrightarrow V^{t+1} - V^t = c \\
-    f_{\mathrm{cont}}(t) = \int_{\Omega} \abs{T(x,y,t) - T_{\mathrm{f}}} \
-    d\omega &\longrightarrow f_{\mathrm{disc}}(t) = \sum_{x,y}\abs{T(x,y,t) -
-        T_{\mathrm{f}}},
-\end{align}
-which translate to the problem
-\begin{equation}
-    \argmin_{c} V^{t_{\mathrm{total}}} \quad \text{such that} \quad
-    \sum_{t=0}^{t_{\mathrm{total}}} f_{\mathrm{disc}}(t) < \gamma.
-    \label{eq:\theequation}
-\end{equation}
-
-\section{Empirical results}
-
-\section{Analysis}
-
-\section{Discussion}
-
-\nocite{air}
-
-\printbibliography
-
+	Unlike most substances, water is capable of retaining heat for extended periods of time. When a substance heats up, the tiny molecules that compose the substance vibrate more quickly. The vibrating of the external substances molecules is what we classify as temperature. The higher the temperature, the warmer the feel of the substance. 
+	
+	How does that relate to us humans exactly? Substance molecules interact with one another via electromagnetic forces at a very minute distances. When a substance meets our skin, the tiny molecules push against with our nerve cells using these electromagnetic forces. Subsequently, our nerves respond with feelings of hot, cold, and everything in-between depending on how quickly the substance's molecules are vibrating.
+	
+	When vibrations in molecules become excessive, the bonds that hold these molecules together will break, releasing or absorbing heat. When a hydrogen bonds to another element, we call this a hydrogen bond; a hydrogen bond, when broken, is an instance where heat is absorbed. Water molecules is made up of two hydrogen bonds. When water heats up, the surrounding heat is absorbed to account for the breaking hydrogen bonds. Consequently, water is able to keep absorb large quantities of heat. 
+	
+	Now going back to your bathtub, suppose you start you come home from a long day at work, eager to bathe and unwind. You start to fill your bathtub with warm water from its single faucet, and 
+	
+	
 \end{document}
