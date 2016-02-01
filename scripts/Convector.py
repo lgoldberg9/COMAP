@@ -38,16 +38,16 @@ class Convector:
         self.__boundary_ellipsoid = (0,0,0,0,0)
         self.__fig = fig
 
-    def get_dx():
+    def get_dx(self):
         return self.__dx
 
-    def get_dy():
+    def get_dy(self):
         return self.__dy
 
-    def get_dt():
+    def get_dt(self):
         return self.__dt
     
-    def set_vfield(vfield):
+    def set_vfield(self, vfield):
         self.__vfield = vfield
 
 
@@ -81,10 +81,10 @@ class Convector:
         return np.power((x - h) / a, p) + np.power((y - k) / b, p) <= 1.0
 
     def calculate_ellipsoid(self, i, j):
-        return check_ellipsoid(self, i, j, self.__source_ellipsoid)
+        return self.check_ellipsoid(i, j, self.__source_ellipsoid)
 
     def mask_ellipsoid(self, i, j):
-        return check_ellipsoid(self, i, j, self.__boundary_ellipsoid)
+        return self.check_ellipsoid(i, j, self.__boundary_ellipsoid)
 
 
     def setup_source(self, ellipsoid, temperature, source=False):
@@ -165,6 +165,8 @@ class Convector:
         dy = self.__dy
         dt = self.__dt
         alpha = self.__tub.alpha
+        u = self.__vfield.get_u()
+        v = self.__vfield.get_v()
         
         for i in range(m):
             for j in range(n):
@@ -180,8 +182,8 @@ class Convector:
                     ylap = Convector.central_second_diff(self.grid[i-1,j,t], 
                                                         self.grid[i,j,t], self.grid[i+1,j,t], dy)
 
-                    update = alpha * (xlap + ylap) - (xgrad * vfield.u[i,j,t] +
-                                                      ygrad * vfield.v[i,j,t])
+                    update = alpha * (xlap + ylap) - (xgrad * u[i,j,t] +
+                                                      ygrad * v[i,j,t])
 
                     if not (self.__source and self.calculate_ellipsoid(i, j)):
                         self.grid[i,j,t+1] = self.grid[i,j,t] + update * dt
@@ -197,7 +199,8 @@ class Convector:
         """
         ims = []
         for t in range(self.__tub.intervals-1):
-            self.diffusion_step(t)
+            self.convection_step(t)
+            self.__vfield.fluid_field(self.__source_ellipsoid, None, t)
             im = plt.imshow(self.grid[:,:,t], **kwargs)
             ims.append([im])
         plt.colorbar()
