@@ -1,0 +1,42 @@
+\documentclass[10pt]{article} 
+
+\usepackage{blindtext}
+\usepackage[utf8]{inputenc}
+\usepackage[american]{babel}
+
+\usepackage{csquotes}
+\usepackage[style=numeric,
+    citestyle=numeric,
+    backend=biber,
+    natbib=true,
+url=true]{biblatex}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage{setspace}
+\usepackage{microtype}
+
+\bibliography{main.bib}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{amsmath, amssymb, amsthm}
+
+
+% Custom macros
+\newcommand{\la}{\overleftarrow}
+\newcommand{\ra}{\overrightarrow}
+\newcommand{\ca}{\overleftrightarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\DeclareMathOperator*{\argmin}{\mathrm{arg\,min}}
+
+\title{Abstract}
+
+\begin{document}
+
+\maketitle
+
+This paper presents a numerical approach to maintaining an ideal temperature in a bathtub while minimizing water usage. In our approach, we utilize the Navier-Stokes formulation of fluid flow and the classical heat equation to model water constrained to a bathtub-like container. The container acts as a closed-system consisting of the bathtub, the water inside the bathtub, and the faucet. The bathtub water is subjected to environmental conditions such as the bathtub absorbing heat from the water, heat loss due to convection with the air particles immediately above the bathtub, adding warm water from the faucet, and placing an avid bather inside the bathtub.
+
+The model uses two different "policies" to model the water: the case of a stationary fluid, and when fluid is allowed to move throughout the bathtub. Within the stationary fluid situation, our model monitors when the faucet is on for a infinitesimal time and then the faucet is turned on throughout the entire duration. We utilize these environmental conditions to minimize the variance between the ideal bathtub temperature and the temperature some time after the initial setup. This paper pays particular attention to the numerical instability of fluid flows, temperature diffusion, and how our choice of "policy" affects the simulation.
+\end{document}

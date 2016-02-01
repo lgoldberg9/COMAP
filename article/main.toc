@@ -4,7 +4,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\tocsection {}{1}{Introduction}}{1}{section.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\tocsection {}{2}{Model overview}}{1}{section.2}
+\contentsline {section}{\tocsection {}{2}{Model overview}}{2}{section.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\tocsubsection {}{2.1}{Two-dimensional Navier-Stokes formulation}}{2}{subsection.2.1}
 \defcounter {refsection}{0}\relax 
@@ -14,7 +14,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\tocsubsection {}{2.4}{Bathtub optimization problem}}{4}{subsection.2.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\tocsection {}{3}{Empirical results}}{4}{section.3}
+\contentsline {section}{\tocsection {}{3}{Empirical results}}{5}{section.3}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\tocsubsection {}{3.1}{Heat diffusion in a stationary fluid}}{5}{subsection.3.1}
 \defcounter {refsection}{0}\relax 

@@ -1,11 +1,11 @@
-\BOOKMARK [1][-]{section.1}{1.\040Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{2.\040Model\040overview}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{2.1.\040Two-dimensional\040Navier-Stokes\040formulation}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{2.2.\040Heat\040convection-diffusion\040equation}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{2.3.\040Numerical\040methods}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.4}{2.4.\040Bathtub\040optimization\040problem}{section.2}% 6
-\BOOKMARK [1][-]{section.3}{3.\040Empirical\040results}{}% 7
-\BOOKMARK [2][-]{subsection.3.1}{3.1.\040Heat\040diffusion\040in\040a\040stationary\040fluid}{section.3}% 8
-\BOOKMARK [2][-]{subsection.3.2}{3.2.\040Nonstationarity\040and\040numerical\040stability}{section.3}% 9
-\BOOKMARK [1][-]{section.4}{4.\040Discussion}{}% 10
+\BOOKMARK [1][-]{section.1}{1. Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{2. Model overview}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{2.1. Two-dimensional Navier-Stokes formulation}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{2.2. Heat convection-diffusion equation}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{2.3. Numerical methods}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{2.4. Bathtub optimization problem}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{3. Empirical results}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{3.1. Heat diffusion in a stationary fluid}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{3.2. Nonstationarity and numerical stability}{section.3}% 9
+\BOOKMARK [1][-]{section.4}{4. Discussion}{}% 10
 \BOOKMARK [1][-]{section*.2}{References}{}% 11
