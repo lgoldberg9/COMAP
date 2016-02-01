@@ -38,6 +38,22 @@
       \field{title}{Numerical Methods for Partial Differential Equations}
       \field{year}{1977}
     \endentry
+    \entry{betounes}{book}{}
+      \name{author}{1}{}{%
+        {{hash=e3dc056c14bd7eb4198bd1740e466535}{Betounes}{B\bibinitperiod}{David}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag New York, Inc}%
+      }
+      \strng{namehash}{e3dc056c14bd7eb4198bd1740e466535}
+      \strng{fullhash}{e3dc056c14bd7eb4198bd1740e466535}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Partial Differential Equations for Computational Science}
+      \field{year}{1998}
+    \endentry
     \entry{convection-diffusion}{misc}{}
       \field{sortinit}{C}
       \field{sortinithash}{59f25d509f3381b07695554a9f35ecb2}
@@ -48,6 +64,24 @@
       \verb https://en.wikipedia.org/wiki/Convection-deffusion_equation
       \endverb
       \warn{\item Datamodel: Entry 'convection-diffusion' (main.bib): Invalid format '2016-1-31' of date field 'urldate' - ignoring}
+    \endentry
+    \entry{granite}{article}{}
+      \name{author}{1}{}{%
+        {{hash=7b4c07e407347569c2c26040ac4ecc63}{D.g.Stephenson}{D\bibinitperiod}{}{}{}{}{}{}}%
+      }
+      \strng{namehash}{7b4c07e407347569c2c26040ac4ecc63}
+      \strng{fullhash}{7b4c07e407347569c2c26040ac4ecc63}
+      \field{sortinit}{D}
+      \field{sortinithash}{78f7c4753a2004675f316a80bdb31742}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Building Physics}
+      \field{title}{A Procedure for Determining the Thermal Diffusivity of Materials}
+      \field{year}{1987}
+      \verb{url}
+      \verb http://jen.sagepub.com/content/10/4/236.abstract
+      \endverb
+      \warn{\item Datamodel: Entry 'granite' (main.bib): Invalid format '2016-1-30' of date field 'urldate' - ignoring}
     \endentry
     \entry{12-steps}{misc}{}
       \name{author}{1}{}{%
@@ -64,6 +98,51 @@
       \verb http://lorenabarba.com/blog/cfd-python-12-steps-to-navier-stokes/
       \endverb
       \warn{\item Datamodel: Entry '12-steps' (main.bib): Invalid format '2016-1-31' of date field 'urldate' - ignoring}
+    \endentry
+    \entry{landau}{book}{}
+      \name{author}{2}{}{%
+        {{hash=11164eda9020f4c4c3286028c51b927b}{Landau}{L\bibinitperiod}{L.\bibnamedelimi D.}{L\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+        {{hash=db219a14d050a6c5d7efb343d90249cd}{Lifshitz}{L\bibinitperiod}{E.\bibnamedelimi M.}{E\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Maxwell House, Fairview Park, Elmsford, New York 10523, U.S.A}%
+      }
+      \list{publisher}{1}{%
+        {Pergamon Press,}%
+      }
+      \strng{namehash}{960b9d5635adee9021615b031415a2a1}
+      \strng{fullhash}{960b9d5635adee9021615b031415a2a1}
+      \field{sortinit}{L}
+      \field{sortinithash}{872351f18d0f736066eda0bf18bfa4f7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd edition}
+      \field{title}{Fluid Mechanics}
+      \field{year}{1987}
+    \endentry
+    \entry{seawater}{misc}{}
+      \list{publisher}{1}{%
+        {National Physical Labratory}%
+      }
+      \field{sortinit}{P}
+      \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
+      \field{labeltitlesource}{title}
+      \field{title}{Physical properties of sea water 2.7.9}
+      \verb{url}
+      \verb http://www.kayelaby.npl.co.uk/general_physics/2_7/2_7_9.html
+      \endverb
+      \warn{\item Datamodel: Entry 'seawater' (main.bib): Invalid format '2016-1-30' of date field 'urldate' - ignoring}
+    \endentry
+    \entry{water}{misc}{}
+      \field{sortinit}{T}
+      \field{sortinithash}{423d138a005a533b47e6475e39378bf2}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Wikipedia}
+      \field{title}{Thermal diffusivity}
+      \verb{url}
+      \verb https://en.wikipedia.org/wiki/Thermal_diffusivity
+      \endverb
+      \warn{\item Datamodel: Entry 'water' (main.bib): Invalid format '2016-1-30' of date field 'urldate' - ignoring}
     \endentry
     \entry{air}{misc}{}
       \name{author}{1}{}{%

@@ -18,7 +18,6 @@ url=true]{biblatex}
 \bibliography{main.bib}
 
 \usepackage[margin=1in]{geometry}
-\usepackage{graphicx}
 
 \usepackage{amsmath, amssymb, amsthm}
 
@@ -123,8 +122,7 @@ write $T_{i,j}^{n}$ to denote the temperature at the $(i,j)$ mesh coordinate
 at the time interval $t=n$. 
 
 Modifying the notation employed by Ames \cite{ames}, we establish the
-following nomenclature for the numerical operations in the model (the use of $T$
-is without loss of generality and can be substituted for $v$ and $p$ as well):
+following nomenclature for the numerical operations in the model:
 
 \begin{center}
     \begin{tabular}[]{ll}
@@ -139,73 +137,11 @@ The estimation of partial derivatives using the above techniques result in
 different rates of convergence as the numerical increment decreases. In
 particular, we have
 \begin{equation}
-    \frac{\partial T_{i,j}^n}{\partial x} = \frac{\ra{\Delta_j}T_{i,j}^n}{\Delta
+    \frac{\partial T_{i,j}^n}{\partial x} = \frac{\ra{\Delta_i}T_{i,j}^n}{\Delta
     x}+ O(\Delta x),
     \label{eq:\theequation}
 \end{equation}
-(while we use differentiation along the horizontal axis, the
-convergence is without loss of generality of axis), and we similarly have
-\begin{equation}
-    \frac{\partial T_{i,j}^n}{\partial x} = \frac{\la{\Delta_j}T_{i,j}^n}{\Delta
-    x} + O(\Delta x),
-    \label{eq:\theequation}
-\end{equation}
-while for central differencing, we have
-\begin{equation}
-     \frac{\partial T_{i,j}^n}{\partial x} = \frac{\ca{\Delta_j}T_{i,j}^n}{\Delta
-    x} + O((\Delta x)^2).
-    \label{eq:\theequation}
-\end{equation}
-Indeed, as $\Delta x \to 0$ we see that central differencing has a quadratic
-rate of convergence, while forward and backward differencing are linear. For
-this advantage we employ central differencing in computing spatial derivatives.
-However, as the time evolution is simulated on the fly, we cannot have access to
-$T_{i,j}^{n+1}$ when computing $T_{i,j}^n$. We consequently use backward
-differencing to estimate the time derivative.
-
-The approximated Navier-Stokes equations now read
-\begin{align}
-    \frac{\ca{\Delta_{j}}(v_x)_{i,j}^n}{\Delta x} +
-    \frac{\ca{\Delta_{i}}(v_y)_{i,j}^n}{\Delta y} &= 0 \\
-    \frac{\la{\Delta_n}v^{n}_{i,j}}{\Delta t} + (v_x)_{i,j}^{n}
-    \frac{\ca{\Delta_{j}}(v_x)_{i,j}^n}{\Delta x} + (v_y)_{i,j}^n
-    \frac{\ca{\Delta_{i}}(v_y)_{i,j}^n}{\Delta y} &=
-    -\frac{1}{\rho} \left(  \frac{\ca{\Delta_j}p_{i,j}^n}{\Delta
-    x}+\frac{\ca{\Delta_i}p_{i,j}^n}{\Delta y}  \right) + \alpha
-    \left(\frac{\ca{\Delta_{j}}^2(v_x)_{i,j}^n}{(\Delta x)^2} + 
-    \frac{\ca{\Delta_{i}}^2(v_y)_{i,j}^n}{(\Delta y)^2}
-    \right).
-\end{align}
-The Poisson equation is 
-\begin{equation}
-    \frac{\ca{\Delta_{j}}^2p_{i,j}^n}{(\Delta x)^2} + 
-    \frac{\ca{\Delta_{i}}^2p_{i,j}^n}{(\Delta y)^2}
-    = b.
-    \label{eq:\theequation}
-\end{equation}
-Finally, heat convection-diffusion is given by
-\begin{equation}
-    \frac{\la{\Delta_n}T_{i,j}^n}{\Delta t} - \alpha \frac{\ca{\Delta_{j}}^2T_{i,j}^n}{(\Delta x)^2} + 
-    \frac{\ca{\Delta_{i}}^2T_{i,j}^n}{(\Delta y)^2} + (v_x)_{i,j}^n
-    \frac{\ca{\Delta_{j}}T_{i,j}^n}{\Delta x} + (v_y)_{i,j}^n
-    \frac{\ca{\Delta_{i}}T_{i,j}^n}{\Delta y} = 0
-    \label{eq:\theequation}
-\end{equation}
-
-The algorithmic approach we take is as follows. Using the numerical formulas
-given above, isolate the time derivative and set its value to the other side of
-the equation. In the case of temperature, for example, we then update its value
-with
-\begin{equation}
-    T_{i,j}^{n+1} \leftarrow T_{i,j}^{n} + \Delta t \cdot \frac{\partial
-        T_{i,j}^n}{\partial t}.
-    \label{eq:\theequation}
-\end{equation}
-This pattern is used throughout the computer implementation of these models. The
-remaining question is the stability of these results. In fact, as we shall
-discuss in Section 4, these equations can be highly unstable, especially with a
-naive assignment of parameter values.
-
+noting that while we use differentiation along the horizontal axis, but the 
 
 
 \subsection{Bathtub optimization problem}
@@ -225,8 +161,8 @@ duration of the bath. Now, consider the surface integral
 \end{equation}
 We propose the minimization problem
 \begin{equation}
-    \argmin_{c} \int_{0}^{t_{\mathrm{total}}} V(t) \ dt \quad \text{such that}
-    \quad \int_{0}^{t_{\mathrm{total}}} f_{\mathrm{cont}}(t) \ dt < \gamma,
+    \argmin_{c} V(t_{\mathrm{total}}) \quad \text{such that} \quad \int_{0}^{t_{\mathrm{total}}}
+    f_{\mathrm{cont}}(t) \ dt < \gamma,
     \label{eq:\theequation}
 \end{equation}
 where $\gamma$ is some tolerance for variation. This is minimization
@@ -244,93 +180,18 @@ This optimization leads to a natural discretization. We rewrite:
 \end{align}
 which translate to the problem
 \begin{equation}
-    \argmin_{c} \sum_{t=0}^{t_{\mathrm{total}}}V^{t_{\mathrm{total}}} \quad \text{such that} \quad
+    \argmin_{c} V^{t_{\mathrm{total}}} \quad \text{such that} \quad
     \sum_{t=0}^{t_{\mathrm{total}}} f_{\mathrm{disc}}(t) < \gamma.
     \label{eq:\theequation}
 \end{equation}
 
-The minimization problem posed here captures the major features of the bathtub
-optimizer problem. In our problem, the bather need not frequently calibrate the
-settings of the bathtub; rather, the bathtub ``policy'' reduces to an initial
-choice of $c$. Moreover, the underlying objective is not to get an even temperature
-distribution (as the bather may simply leave the faucet on arbitrarily long to
-achieve this), but to conserve as much water as possible. The temperature
-distribution problem, then, must be seen within the framework of water
-conservation first and not vice versa. On the other hand, the best volume
-minimization policy is $c=0$, so the bounded temperature total variation
-constraint incorporates the desired $c > 0$ aspects of the problem. Finally,
-from both a numerical perspective and a feasibility perspective, demanding
-complete temperature uniformity, $\gamma = 0$, is impossible. Instead, $\gamma$
-represents the degree of tolerance to which the bather can expect a range of
-temperatures in the bathtub.
-
 \section{Empirical results}
 
-Our work is highly preliminary and requires more study in order to better
-calibrate our models and properly run experiments. However, we simulated a
-number of variously parametrized situations and can report on the model as a
-proof of concept.
-
-\begin{center}
-\includegraphics[width=0.8\textwidth]{../plots/diffusion.png}
-
-Figure 1: The heat diffusion process in the case of a stationary fluid and
-constant faucet tap. The mesh
-dimensions are $50 \times 50$, $\alpha = 10^{-3}$, $T_{\mathrm{tub}} = 10$, and
-$T_{\mathrm{faucet}} = 30$.
-\end{center}
-
-For example, the above figure shows a heat-diffusion process on a stationary
-fluid. The white ellipsoid in the left side of the image represents temperature
-emanating from the faucet source. Since the faucet water temperature is greater
-than the rest of the bathtub water, we observe temperature diffusion across the
-bathtub over time.
-
-The same setup yields a decreasing total variation of temperature as a function
-of time, which corroborates with the intuition that heat diffusing from a source
-increases the uniformity of the bathtub heat.
-
-\begin{center}
-    \includegraphics[width=0.5\textwidth]{../plots/tv-01.png}
-
-    Figure 2: Temperature total variation over time in the case of a stationary
-    fluid, with the same parameters as in Figure 1. The monotonicity of the TV
-    function is in line with basic intution.
-\end{center}
-
-We can also examine the case in which the faucet water is turned on only for the
-initial instant. Here, as we expect, the overall temperature level decreases
-rapidly after the first time interval, but the uniformity increases. 
-
-\begin{center}
-    \includegraphics[width=0.8\textwidth]{../plots/diffusion-02.png}
-
-    Figure 3: The heat diffusion process in the case of a stationary fluid and
-    temporary faucet tap. The mesh dimensions are $50 \times 50$, $\alpha =
-    10^{-3}$, $T_{\mathrm{tub}} = 10$, and $T_{\mathrm{faucet}} = 30$.
-\end{center}
-
-However, as we modeled total variation as deviation from the faucet temperature,
-we see that the total variation receives a higher penalty than before.
-
-
-\begin{center}
-    \includegraphics[width=0.5\textwidth]{../plots/tv-02.png}
-
-    Figure 4: Temperature total variation over time in the case of a stationary
-    fluid, with the same parameters as in Figure 3. The monotonicity of the TV
-    function is in line with basic intution.
-\end{center}
-
-The fact that the total variation performs so poorly in this case has
-implications for the policy problem, which we will discuss in the next section.
-Generalizing beyond stationary fluids reveals a number of critical issues of the
-numerical techniques employed in this study.
-
+\section{Analysis}
 
 \section{Discussion}
 
-\nocite{*}
+\nocite{air}
 
 \printbibliography
 
