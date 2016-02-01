@@ -5,8 +5,8 @@ from Bathtub import Bathtub
 import numpy as np
 import matplotlib.pyplot as plt
 
-rows = 2**5
-cols = 2**5
+rows = 4
+cols = 4
 
 length = 1.0
 width = 1.0
@@ -20,12 +20,13 @@ alpha = 1e-4
 material = 1.0
 F = 0.0
 rho = 1.0
+initial_b = 50
 
 tub = Bathtub([rows, cols], [length,width], intervals, duration, temperature,
 alpha, material)
 
 heat = Convector(tub)
-vfield = FluidField(tub, F, rho, initial_temp)
+vfield = FluidField(tub, F, rho, initial_temp, 50)
 
 heat.set_vfield(vfield)
 vfield.set_conv(heat)

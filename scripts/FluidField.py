@@ -16,13 +16,14 @@ def second_diff(future, current, past, delta):
 
 class FluidField:
 
-    def __init__(self, tub, F, rho, initial_temp):
+    def __init__(self, tub, F, rho, initial_temp, initial_b):
         self.__tub = tub
         self.__u = np.zeros((tub.rows,tub.cols,tub.intervals))
         self.__v = np.zeros((tub.rows,tub.cols,tub.intervals))
         self.__p = np.ones((tub.rows,tub.cols,tub.intervals)) 
         self.__b = np.zeros((tub.rows,tub.cols,tub.intervals))
         self.__source_temperature = initial_temp
+        self.__initial_b = initial_b
         
         # Field constants
         self.__F = F
@@ -42,11 +43,11 @@ class FluidField:
         self.__b = np.zeros((tub.rows,tub.cols,tub.intervals))
 
     def setup_b(self, ellipsoid, initial_b, t):
-        h, k, a, b, p = ellipsoid
         for i in range(self.__tub.rows):
-            for j in range(self.__tub.cols):              
+            for j in range(self.__tub.cols):
                 if self.__conv.check_ellipsoid(i, j, ellipsoid):
-                    self.__b[i,j,t] = initial_b
+                    print(initial_b*(i-j+4))
+                    self.__b[i,j,t] = initial_b*np.abs(i-j+4)
                 else:
                     self.__b[i,j,t] = 0.0
 
@@ -58,11 +59,17 @@ class FluidField:
         p = self.__p
         for i in range(1, self.__tub.rows - 1):
             for j in range(1, self.__tub.cols - 1):
+                print("b. ", self.__b[i,j,t])
                 result = (p[i+1,j, t-1] + p[i-1, j, t-1]) * dy
+                print("1. ",result)
                 result += (p[i, j+1, t-1] + p[i, j-1, t-1]) * dx
-                result -= self.__b[i,j,t-1] * dx * dy
+                print("2. ",result)
+                result -= self.__b[i,j,t] * dx * dy
+                print("3. ",result)
                 result /= (2 * (dx + dy))
-                self.__p[i, j, t] = result 
+                print("4. ",result)
+                self.__p[i, j, t] = result
+                
                 
 
     def fluid_field(self, source_ellipsoid, sink_ellipsoid, t):
@@ -75,25 +82,25 @@ class FluidField:
         b = self.__b
         dx = self.__conv.get_dx()
         dy = self.__conv.get_dy()
-        dt = self.__conv.get_dt() 
+        dt = self.__conv.get_dt()
 
-        self.setup_b(source_ellipsoid, 0.0, t)
+        self.setup_b(source_ellipsoid, self.__initial_b, t)
         self.compute_pressure(t)
         
         for i in range(1, self.__tub.rows-1):
             for j in range(1, self.__tub.rows-1):
                 if self.__conv.mask_ellipsoid(i,j):
-                    p[i,j,t] = p[i,j,t-1]
-
+                    
+                    
                     du = -rho * forward_diff(p[i+1,j,t-1], p[i,j,t-1], dx)
                     du += alpha * second_diff(u[i+1,j,t-1], u[i,j,t-1], u[i-1,
-                                                j, t-1], dx) 
+                                                j, t-1], dx)
                     du += alpha * second_diff(u[i,j+1,t-1], u[i,j,t-1],
-                    u[i,j-1,t-1], dy)
+                                                u[i,j-1,t-1], dy)
                     du -= u[i,j,t-1] * forward_diff(u[i+1,j,t-1], u[i,j,t-1],
-                    dx)
+                                                    dx)
                     du -= v[i,j,t-1] * forward_diff(u[i,j+1,t-1], u[i,j,t-1],
-                    dy)
+                                                    dy)
                     du *= dt
                     u[i,j,t] = u[i,j,t-1] + du
 

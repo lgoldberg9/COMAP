@@ -17,7 +17,7 @@ class Bathtub:
     """
 
     def __init__(self, box_shape, box_dims, intervals=100, duration=60,
-            temp=0.0, alpha=1e-7, material=1.0):
+            temp=0.0, alpha=1e-7, ellipse=(0,0,0)):
         """
         Bathtub class initialization method.
 
@@ -27,11 +27,11 @@ class Bathtub:
 
 
         Keyword arguments:
-        intervals -- number of time steps for the convection (default 100)
-        duration -- number of time units for the convection (default 60)
+        intervals -- number of time steps for the diffusion (default 100)
+        duration -- number of time units for the diffusion (default 60)
         temp -- global temperature default (default 0.0)
         alpha -- diffusion parameter (default 1e-7)
-        material -- represents bathtub material (default 1.0)
+        ellipse -- ordered triple containing the major and minor axes. 
         """
 
         self.rows = box_shape[0]
@@ -42,4 +42,5 @@ class Bathtub:
         self.duration = duration
         self.temp = temp
         self.alpha = alpha
-        self.material = 1.0
+        self.tubshape = ellipse
+
