@@ -1,21 +1,21 @@
 [0] Config.pm:325> INFO - This is Biber 2.1
 [0] Config.pm:328> INFO - Logfile is 'main.blg'
-[35] biber:276> INFO - === Mon Feb  1, 2016, 10:47:09
-[35] Biber.pm:334> INFO - Reading 'main.bcf'
-[120] Biber.pm:643> INFO - Using all citekeys in bib section 0
-[133] Biber.pm:2978> INFO - Processing section 0
-[145] Biber.pm:3116> INFO - Looking for bibtex format file 'main.bib' for section 0
-[146] bibtex.pm:1010> INFO - Decoding LaTeX character macros into UTF-8
-[147] bibtex.pm:884> INFO - Found BibTeX data source 'main.bib'
-[152] Utils.pm:146> WARN - Datamodel: Entry 'seawater' (main.bib): Invalid format '2016-1-30' of date field 'urldate' - ignoring
-[155] Utils.pm:146> WARN - Datamodel: Entry 'granite' (main.bib): Invalid format '2016-1-30' of date field 'urldate' - ignoring
-[158] Utils.pm:146> WARN - Datamodel: Entry 'water' (main.bib): Invalid format '2016-1-30' of date field 'urldate' - ignoring
-[158] Utils.pm:146> WARN - Datamodel: Entry '12-steps' (main.bib): Invalid format '2016-1-31' of date field 'urldate' - ignoring
-[159] Utils.pm:146> WARN - Datamodel: Entry 'convection-diffusion' (main.bib): Invalid format '2016-1-31' of date field 'urldate' - ignoring
-[276] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[276] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[276] Biber.pm:2855> INFO - Sorting list 'nty' of type 'entry' with scheme 'nty' and locale 'en-US'
-[277] Biber.pm:2859> INFO - No sort tailoring available for locale 'en-US'
-[293] bbl.pm:505> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[294] bbl.pm:596> INFO - Output to main.bbl
-[294] Biber.pm:107> INFO - WARNINGS: 5
+[53] biber:276> INFO - === Mon Feb  1, 2016, 14:49:45
+[53] Biber.pm:334> INFO - Reading 'main.bcf'
+[153] Biber.pm:643> INFO - Using all citekeys in bib section 0
+[165] Biber.pm:2978> INFO - Processing section 0
+[177] Biber.pm:3116> INFO - Looking for bibtex format file 'main.bib' for section 0
+[178] bibtex.pm:1010> INFO - Decoding LaTeX character macros into UTF-8
+[179] bibtex.pm:884> INFO - Found BibTeX data source 'main.bib'
+[184] Utils.pm:146> WARN - Datamodel: Entry '12-steps' (main.bib): Invalid format '2016-1-31' of date field 'urldate' - ignoring
+[186] Utils.pm:146> WARN - Datamodel: Entry 'water' (main.bib): Invalid format '2016-1-30' of date field 'urldate' - ignoring
+[186] Utils.pm:146> WARN - Datamodel: Entry 'convection-diffusion' (main.bib): Invalid format '2016-1-31' of date field 'urldate' - ignoring
+[189] Utils.pm:146> WARN - Datamodel: Entry 'granite' (main.bib): Invalid format '2016-1-30' of date field 'urldate' - ignoring
+[191] Utils.pm:146> WARN - Datamodel: Entry 'seawater' (main.bib): Invalid format '2016-1-30' of date field 'urldate' - ignoring
+[293] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[293] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[293] Biber.pm:2855> INFO - Sorting list 'nty' of type 'entry' with scheme 'nty' and locale 'en-US'
+[293] Biber.pm:2859> INFO - No sort tailoring available for locale 'en-US'
+[308] bbl.pm:505> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[309] bbl.pm:596> INFO - Output to main.bbl
+[310] Biber.pm:107> INFO - WARNINGS: 5
