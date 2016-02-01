@@ -29,7 +29,7 @@ url=true]{biblatex}
 \cfoot{}
 
 \usepackage{amsmath, amssymb, amsthm}
-
+\usepackage{ragged2e}
 
 % Custom macros
 \newcommand{\la}{\overleftarrow}
@@ -52,12 +52,6 @@ ellipsoid geometries}
 \tableofcontents
 
 \begin{abstract}
-    Ever wonder what's the how to keep your warm bath at the right temperature
-    while helping the environment? This paper introduces and analyzes
-    two-dimensional heat convection-diffusion through the Navier-Stokes
-    formulation of fluid-flow and the classical heat equation. Our mission is to
-    determine the optimal amount of water necessary to maintain the perfect
-    bathtub temperature. BLAH BLAH BLAH
 \end{abstract}
 
 \section{Introduction}
@@ -284,10 +278,12 @@ proof of concept.
 \begin{center}
 \includegraphics[width=0.8\textwidth]{../plots/diffusion-01.png}
 
+\justify
+\footnotesize{
 Figure 1: The heat diffusion process in the case of a stationary fluid and
 constant faucet tap. The mesh
 dimensions are $50 \times 50$, $\alpha = 10^{-3}$, $T_{\mathrm{tub}} = 10$, and
-$T_{\mathrm{faucet}} = 30$.
+$T_{\mathrm{faucet}} = 30$.}
 \end{center}
 
 For example, the above figure shows a heat-diffusion process on a stationary
@@ -303,9 +299,11 @@ increases the uniformity of the bathtub heat.
 \begin{center}
     \includegraphics[width=0.5\textwidth]{../plots/tv-01.png}
 
+    \justify
+    \footnotesize{
     Figure 2: Temperature total variation over time in the case of a stationary
     fluid, with the same parameters as in Figure 1. The monotonicity of the TV
-    function is in line with basic intution.
+function is in line with basic intution.}
 \end{center}
 
 We can also examine the case in which the faucet water is turned on only for the
@@ -319,9 +317,11 @@ of the simulation.
 \begin{center}
     \includegraphics[width=0.8\textwidth]{../plots/diffusion-02.png}
 
+    \justify
+    \footnotesize{
     Figure 3: The heat diffusion process in the case of a stationary fluid and
     temporary faucet tap. The mesh dimensions are $50 \times 50$, $\alpha =
-    10^{-3}$, $T_{\mathrm{tub}} = 10$, and $T_{\mathrm{faucet}} = 30$.
+    10^{-3}$, $T_{\mathrm{tub}} = 10$, and $T_{\mathrm{faucet}} = 30$.}
 \end{center}
 
 We see the overall temperature level decreases rapidly after the first time
@@ -332,75 +332,144 @@ receives a higher penalty than before.
 \begin{center}
     \includegraphics[width=0.5\textwidth]{../plots/tv-02.png}
 
+    \justify
+    \footnotesize{
     Figure 4: Temperature total variation over time in the case of a stationary
     fluid, with the same parameters as in Figure 3. The monotonicity of the TV
-    function is in line with basic intution.
+function is in line with basic intution.}
 \end{center}
 The fact that the total variation performs so poorly in this case has
 implications for the policy problem, which we will discuss in the next section.
 
 Generalizing beyond stationary fluids reveals a number of critical issues of the
-numerical techniques employed in this study. In stationary fluid, the
+numerical techniques employed in this study, but also provides useful
+information regarding the underlying problem. In stationary fluid, the
 Navier-Stokes and Poisson equations are not in play; however, by relaxing the
-stationarity constraint, we observe the effects of the numerical instability of
-our approximations to these equtaions. We simulate the case described in Figure
-1 but relax the stationarity constraint.
+stationarity constraint, we observe the effects fluid flow on the diffusivity of
+heat. We simulate the case described in Figure 1 but relax the stationarity constraint.
 
 \begin{center}
     \includegraphics[width=0.8\textwidth]{../plots/diffusion-03.png}
 
+    \justify
+    \footnotesize{
     Figure 5: The heat diffusion process in the case of a moving fluid and
-    temporary faucet tap. The mesh dimensions are $50 \times 50$, $\alpha =
+    permanent faucet tap. The mesh dimensions are $50 \times 50$, $\alpha =
     10^{-3}$, $T_{\mathrm{tub}} = 10$, and $T_{\mathrm{faucet}} = 30$. The
-    parameter controlling the fluid motion is set $b = 5$.
+parameter controlling the fluid motion is set $b = 5$.}
 \end{center}
 
 By comparing Figure 5 with Figure 1, we see that adding the convection process
 into the model actually improves the spread of the faucet temperature. Since
 more of the bathtub area is white in the images, we have more of the surface
-area heated by the temperature water.
+area heated by the temperature water. This phenomenon is confirmed by measuring
+the total variation of the bathtub water over time.
 
 \begin{center}
     \includegraphics[width=0.5\textwidth]{../plots/tv-03.png}
 
+    \justify
+    \footnotesize{
     Figure 6: Temperature total variation (with respect to $T_{\mathrm{faucet}}$
     and with respect to the mean bathtub temperature over time in the case of a
     nonstationary fluid, with the same parameters as in Figure 5. The TV
     functions are considerably less well behaved, but notably the TV with
     respect to $T_{\mathrm{faucet}}$ decreases to a lower level than the same TV
-    in Figure 2.
+in Figure 2.}
 \end{center}
+
+There are three interesting phenomena present in this result. First, we see that
+the evolution of the total variation over time is less well-behaved than before.
+We also note that the total variation with respect to the mean bathtub
+temperature grows almost linearly with time and exhibits much less concavity
+than Figure 2. Finally, the total variation with respect to
+$T_{\mathrm{faucet}}$ reaches a lower threshold than the total variation in the
+diffusion case only in Figure 2.
+
+The choice of $b=5$ is essntially arbitrary; however the behavior of the fluid
+with respect to different choices is highly volatile. In fact, modest changes to
+the value for $b$ have drastic implications for the numerical stability of the
+fluid flow, and consequently the temperature. We see this phenomenon in Figures
+7 and 8. 
 
 \begin{center}
     \includegraphics[width=0.8\textwidth]{../plots/diffusion-04.png}
 
+    \justify
+    \footnotesize{
     Figure 7: The heat diffusion process in the case of a moving fluid and
-    temporary faucet tap. The mesh dimensions are $50 \times 50$, $\alpha =
+    permanent faucet tap. The mesh dimensions are $50 \times 50$, $\alpha =
     10^{-3}$, $T_{\mathrm{tub}} = 10$, and $T_{\mathrm{faucet}} = 30$. The
     parameter controlling the fluid motion is set $b = 8$. The numerical
     instability of the simulation causes the complete whitewashing by the final
-    frame.
+frame.}
 \end{center}
 
-By comparing Figure 5 with Figure 1, we see that adding the convection process
-into the model actually improves the spread of the faucet temperature. Since
-more of the bathtub area is white in the images, we have more of the surface
-area heated by the temperature water.
+The evolution of frames in Figure 7 represents an explosion in the numerical
+values associated with the temperatures. The black-white ridge in the bottom
+right corner of the third frame exhibits the typical instability phenomenon we
+observed in the simulations. Emanating from near the faucet source, this
+phenomenon appears to push out towards the boundary of the frame until the
+entire frame is whitewashed. We can also see this last-minute explosion by
+measuring the total variation.
 
 \begin{center}
     \includegraphics[width=0.5\textwidth]{../plots/tv-04.png}
 
+    \justify
+    \footnotesize{
     Figure 8: Temperature total variation (with respect to $T_{\mathrm{faucet}}$
     and with respect to the mean bathtub temperature over time in the case of a
     nonstationary fluid, with the same parameters as in Figure 5. The TV
     functions are considerably less well behaved, but notably the TV with
     respect to $T_{\mathrm{faucet}}$ decreases to a lower level than the same TV
-    in Figure 2.
+in Figure 2.}
 \end{center}
 
+The presence of a constant heat and flow source in the faucet might suggest that
+the numerical instability associated with the parametrization of $b$ relates
+also to the source. We see that this is not the case. The numerical instability
+persists even when the faucet is turned off, as in Figure 3.
 
-The numerical instability persists even when the faucet is turned off, as in
-Figure 3.
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{../plots/diffusion-05.png}
+
+    \justify
+    \footnotesize{Figure 9: The heat diffusion process in the case of a moving fluid and
+    temporary faucet tap. The mesh dimensions are $50 \times 50$, $\alpha =
+    10^{-3}$, $T_{\mathrm{tub}} = 10$, and $T_{\mathrm{faucet}} = 30$. The
+    parameter controlling the fluid motion is set $b = 8$. The numerical
+    instability of the simulation causes the complete whitewashing by the final
+frame.}
+\end{center}
+
+Interestingly, the second frame seems to show numerical instability towards
+underflow, but by the third frame we observe near complete whitewashing of the
+same characterization as Figure 7. We also see the black-white ridge in the
+bottom right corner of the third frame, again in a similar fashion to Figure 7.
+
+More surprisingly is the behavior of the temperature total variation, as we see
+below in Figure 10.
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{../plots/tv-05.png}
+
+    \justify
+    \footnotesize{
+        Figure 10: Temperature total variation (with respect to
+        $T_{\mathrm{faucet}}$ and with respect to the mean bathtub temperature
+        over time in the case of a nonstationary fluid, with the same parameters
+        as in Figure 9. The TV functions are very poorly behaved and exhibit no
+        similar characteristics to the previous configurations of the
+        simulation.}
+\end{center}
+We have no intuition or explanation for the behavior of these total variation
+functions. We suspect that this is almost entirely due to numerical artifacts in
+the simulation but cannot speak with any authority to why the hump shape appears
+in the plots. We do note, however, that the hump appears to correspond to the
+second frame of Figure 9, in which we observe a very dark region with low
+temperature. 
+
+
 
 
 \section{Discussion}
@@ -408,7 +477,7 @@ Figure 3.
 As we showed in the previous section, our current numerical implementation of
 the Navier-Stokes equations are highly sensitive to the initial conditions of
 the model. Though a careful calibration of the deep parameters (e.g. $\rho$,
-$\alpha$, $\beta$, etc.) and mesh granularity might produce more stable results,
+$\alpha$, $b$, etc.) and mesh granularity might produce more stable results,
 we doubt that this would be sufficient. Fundamentally, forward Euler
 approximations of the solutions to differential equations encourage volatility 
 by accumulating the relatively small errors from the individual step
@@ -430,9 +499,22 @@ reliability of the model.
 That maintaining an active source (in the case of the bathtub narrative, a
 running faucet) reduces the total variation of the temperature in the bathtub
 supports our formulation of the optimization problem and also indicates suitable
-choices for $\gamma$. If the optimization problem requires a bound
+choices for $\gamma$. Since including nonstationarity reduces the total
+variation of the temperature the farthest, we can suggest to the avid bather
+that keeping the water moving in the bathtub likely keeps the bathtub
+temperature more evenly distributed than letting the water approach
+stationarity.
+
+Further investigation should attempt to mitigate the detrimental effects of
+unchecked numerical instability. The mesh approach to the numerical
+approximation of PDE solutions can be optimized \cite{betounes, 12-steps} to
+minimize the accumulation of error. Solving our proposed optimization problem
+requires additional study, too. Ultimately, our avid bather needs a policy to
+maximize her utility, so specifying the ideal velocity $c$ remains the future
+priority.
 
 \nocite{*}
+
 
 \printbibliography
 
